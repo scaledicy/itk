@@ -1,0 +1,13 @@
+.asideContainer {
+  flex: 0 1 300px;
+  margin: 0;
+  padding: 50px 0;
+  background-color: #fff;
+  li {
+    padding: 0 20px;
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,18 +1,39 @@
 .asideContainer {
   flex: 0 1 300px;
-  margin: 0;
   padding: 50px 0;
   background-color: #fff;
-  li {
-    padding: 0 20px;
-    margin-bottom: 15px;
-    &:last-child {
-      margin-bottom: 0;
+}
+
+.asideList {
+  margin: 0;
+  a {
+    display: block;
+    padding: 14px 20px;
+    &.active {
+      text-decoration: underline;
+      background-color: coral;
+      color: #fff;
     }
-    a {
-      &.active {
-        text-decoration: underline;
-      }
+  }
+}
+
+
+.friendsList {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-align: center;
+  img {
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }
+  li {
+    margin-right: 8px;
+    &:last-child {
+      margin-right: 0;
     }
   }
 }

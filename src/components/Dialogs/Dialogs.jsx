@@ -9,13 +9,13 @@ const Dialogs = props => {
         <h1 className={s.dialogsTitle}>Messages</h1>
         <div className={s.dialogs}>
           <ul className={s.dialogsContacts}>
-            {props.dialogsData.map(el => (
+            {props.messagesPage.dialogs.map(el => (
               <DialogItem key={el.id} id={el.id} name={el.name} />
             ))}
           </ul>
           <div className={s.dialogsChatContainer}>
             <ul className={s.dialogsChat}>
-              {props.messagesData.map(el => (
+              {props.messagesPage.messages.map(el => (
                 <Message key={el.id} id={el.id} message={el.message} />
               ))}
             </ul>

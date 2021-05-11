@@ -1,3 +1,27 @@
 .dialogsContainer {
   color: coral;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dialogsTitle {
+  text-align: center;
+}
+
+.dialogs {
+  display: flex;
+  flex-grow: 1;
+}
+
+.dialogsContacts {
+  flex: 0 1 200px;
+}
+
+.dialogsChatContainer {
+  margin-left: 16px;
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }

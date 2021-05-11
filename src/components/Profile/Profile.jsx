@@ -1,12 +1,12 @@
 import s from "./Profile.module.scss";
-import profileBg from "../../assets/images/cats.jpg";
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
   return (
     <>
-      <h1>Profile</h1>
-      <img className={s.profileBg} src={profileBg} alt=""/>
+      <h1 className={s.profileTitle}>Profile</h1>
+      <ProfileInfo />
       <MyPosts />
     </>
   );

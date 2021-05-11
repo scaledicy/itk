@@ -1,14 +1,14 @@
 import s from "./Aside.module.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Aside = () => {
   return (
     <ul className={s.asideContainer}>
       <li>
-        <Link to="/profile">Profile</Link>
+        <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
       </li>
       <li>
-        <Link to="/messages">Messages</Link>
+        <NavLink to="/messages" activeClassName={s.active}>Messages</NavLink>
       </li>
       <li>
         <a href='/'>News</a>

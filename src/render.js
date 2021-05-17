@@ -4,13 +4,13 @@ import "./styles/styles.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import { addPost } from "./redux/state";
+import { addPost, updateNewPostText } from "./redux/state";
 
 export let rerenderEntireTree = props => {
   ReactDOM.render(
     <React.StrictMode>
       <Router>
-        <App appState={props} addPost={addPost} />
+        <App appState={props} updateNewPostText={updateNewPostText} addPost={addPost} />
       </Router>
     </React.StrictMode>,
     document.getElementById("root")

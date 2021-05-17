@@ -7,7 +7,12 @@ const Profile = props => {
     <>
       <h1 className={s.profileTitle}>Profile</h1>
       <ProfileInfo />
-      <MyPosts posts={props.posts} addPost={props.addPost} />
+      <MyPosts
+        posts={props.profilePage.posts}
+        newPostText={props.profilePage.newPostText}
+        updateNewPostText={props.updateNewPostText}
+        addPost={props.addPost}
+      />
     </>
   );
 };

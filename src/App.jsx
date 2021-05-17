@@ -18,7 +18,11 @@ const App = props => {
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>
-                <Profile posts={props.appState.profilePage.posts} addPost={props.addPost}/>
+                <Profile
+                  profilePage={props.appState.profilePage}
+                  updateNewPostText={props.updateNewPostText}
+                  addPost={props.addPost}
+                />
               </Route>
             </Switch>
             <Route path='/messages'>

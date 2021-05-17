@@ -18,7 +18,7 @@ const App = props => {
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>
-                <Profile posts={props.appState.profilePage.posts} />
+                <Profile posts={props.appState.profilePage.posts} addPost={props.addPost}/>
               </Route>
             </Switch>
             <Route path='/messages'>

@@ -4,7 +4,7 @@ import Footer from "./components/Footer/Footer";
 import Aside from "./components/Aside/Aside";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 const App = props => {
   return (
@@ -20,9 +20,8 @@ const App = props => {
               <Route path='/profile'>
                 <Profile posts={props.appState.profilePage.posts} />
               </Route>
-              <Redirect from='/' to='/profile' />
             </Switch>
-            <Route exact path='/messages'>
+            <Route path='/messages'>
               <Dialogs messagesPage={props.appState.messagesPage} />
             </Route>
           </div>

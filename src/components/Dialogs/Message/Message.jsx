@@ -1,4 +1,4 @@
-import s from "./Message.module.scss";
+// import s from "./Message.module.scss";
 
 const Message = props => {
   return (

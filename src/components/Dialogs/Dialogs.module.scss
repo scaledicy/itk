@@ -21,7 +21,19 @@
 .dialogsChatContainer {
   margin-left: 16px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialogsChat {
   background-color: #fff;
+  flex-grow: 1;
   padding: 20px;
   border-radius: 10px;
+}
+
+.messageForm {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
 }

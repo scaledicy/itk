@@ -12,7 +12,8 @@ const MyPosts = props => {
 
   const onPostChange = () => {
     let text = newPostEl.current.value;
-    props.updateNewPostText(text);
+    let action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
+    props.dispatch(action);
   };
 
   return (
@@ -24,7 +25,11 @@ const MyPosts = props => {
           className={s.postTextarea}
           value={props.newPostText}
         />
-        <Button onClick={props.addPost} variant='contained' color='primary'>
+        <Button
+          onClick={() => props.dispatch({ type: "ADD-POST" })}
+          variant='contained'
+          color='primary'
+        >
           Add post
         </Button>
       </div>

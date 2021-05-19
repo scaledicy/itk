@@ -20,8 +20,7 @@ const App = props => {
               <Route path='/profile'>
                 <Profile
                   profilePage={props.appState.profilePage}
-                  updateNewPostText={props.updateNewPostText}
-                  addPost={props.addPost}
+                  dispatch={props.dispatch}
                 />
               </Route>
             </Switch>

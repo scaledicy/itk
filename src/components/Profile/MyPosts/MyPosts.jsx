@@ -2,6 +2,7 @@ import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 import Button from "@material-ui/core/Button";
 import React from "react";
+import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/state";
 
 const MyPosts = props => {
   let postEl = props.posts.map(el => (
@@ -12,8 +13,7 @@ const MyPosts = props => {
 
   const onPostChange = () => {
     let text = newPostEl.current.value;
-    let action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
-    props.dispatch(action);
+    props.dispatch(updateNewPostTextActionCreator(text));
   };
 
   return (
@@ -26,7 +26,7 @@ const MyPosts = props => {
           value={props.newPostText}
         />
         <Button
-          onClick={() => props.dispatch({ type: "ADD-POST" })}
+          onClick={() => props.dispatch(addPostActionCreator())}
           variant='contained'
           color='primary'
         >

@@ -25,7 +25,10 @@ const App = props => {
               </Route>
             </Switch>
             <Route path='/messages'>
-              <Dialogs messagesPage={props.appState.messagesPage} />
+              <Dialogs
+                messagesPage={props.appState.messagesPage}
+                dispatch={props.dispatch}
+              />
             </Route>
           </div>
         </div>

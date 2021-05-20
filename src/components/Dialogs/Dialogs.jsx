@@ -4,12 +4,19 @@ import Message from "./Message/Message";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React from "react";
+import {
+  addMessageActionCreator,
+  updateNewMessageTextActionCreator,
+} from "../../redux/state";
 
 const useStyles = makeStyles({
   inputMessage: {
     flexGrow: 1,
     marginRight: 30,
+    resize: "none",
+    borderRadius: 10,
+    padding: 8,
   },
   addMessage: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
@@ -24,11 +31,7 @@ const useStyles = makeStyles({
 
 const Dialogs = props => {
   const classes = useStyles();
-  const [message, setMessage] = useState("");
-
-  const createMessage = () => {
-    return alert(message);
-  };
+  const newMessageEl = React.createRef();
 
   let messagesContacts = props.messagesPage.dialogs.map(el => (
     <DialogItem key={el.id} id={el.id} name={el.name} />
@@ -36,6 +39,11 @@ const Dialogs = props => {
   let messages = props.messagesPage.messages.map(el => (
     <Message key={el.id} id={el.id} message={el.message} />
   ));
+
+  const onMessageChange = () => {
+    let text = newMessageEl.current.value;
+    props.dispatch(updateNewMessageTextActionCreator(text));
+  };
   return (
     <>
       <div className={s.dialogsContainer}>
@@ -45,18 +53,19 @@ const Dialogs = props => {
           <div className={s.dialogsChatContainer}>
             <ul className={s.dialogsChat}>{messages}</ul>
             <div className={s.messageForm}>
-              <TextField
+              <textarea
+                ref={newMessageEl}
                 className={classes.inputMessage}
-                id='standard-basic'
-                label='Input message...'
-                value={message}
-                onChange={e => setMessage(e.target.value)}
+                value={props.messagesPage.newMessageText}
+                onChange={onMessageChange}
               />
               <Button
                 className={classes.addMessage}
                 variant='contained'
                 color='primary'
-                onClick={createMessage}
+                onClick={() => {
+                  props.dispatch(addMessageActionCreator());
+                }}
               >
                 Add post
               </Button>

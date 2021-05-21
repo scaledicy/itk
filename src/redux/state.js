@@ -96,7 +96,7 @@ let store = {
       message: this._state.messagesPage.newMessageText,
     };
     this._state.messagesPage.messages.push(newMessage);
-    this._state.profilePage.newPostText = "";
+    this._state.messagesPage.newMessageText = "";
     this._callSubscriber(this._state);
   },
   _updateNewMessageText(newText) {
@@ -110,7 +110,7 @@ let store = {
     } else if (action.type === UPDATE_NEW_POST_TEXT) {
       this._updateNewPostText(action.newText);
     } else if (action.type === ADD_MESSAGE) {
-      this._addPost();
+      this._addMessage();
     } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
       this._updateNewMessageText(action.newText);
     }

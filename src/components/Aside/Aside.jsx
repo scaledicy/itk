@@ -6,10 +6,7 @@ const Friend = props => {
     <>
       <li>
         <a className={s.friendItem} href='/'>
-          <img
-            src={props.img}
-            alt='/'
-          />
+          <img src={props.img} alt='/' />
           <span>{props.name}</span>
         </a>
       </li>
@@ -18,7 +15,9 @@ const Friend = props => {
 };
 
 const Aside = props => {
-  let friends = props.friends.map(el => <Friend key={el.id} id={el.id} name={el.name} img={el.img}/>);
+  let friends = props.friends.map(el => (
+    <Friend key={el.id} id={el.id} name={el.name} img={el.img} />
+  ));
   return (
     <>
       <div className={s.asideContainer}>

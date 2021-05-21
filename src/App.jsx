@@ -14,7 +14,7 @@ const App = props => {
       <div className='appContainer'>
         <Header />
         <div className='appGridContent'>
-          <Aside friends={props.appState.friends} />
+          <Aside friends={props.appState.sidebarPage.friends} />
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>

@@ -7,7 +7,7 @@ import React from "react";
 import {
   addMessageActionCreator,
   updateNewMessageTextActionCreator,
-} from "../../redux/state";
+} from "../../redux/DialogsReducer";
 
 const useStyles = makeStyles({
   inputMessage: {

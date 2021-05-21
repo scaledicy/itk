@@ -2,7 +2,10 @@ import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 import Button from "@material-ui/core/Button";
 import React from "react";
-import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/state";
+import {
+  addPostActionCreator,
+  updateNewPostTextActionCreator,
+} from "../../../redux/ProfileReducer";
 
 const MyPosts = props => {
   let postEl = props.posts.map(el => (

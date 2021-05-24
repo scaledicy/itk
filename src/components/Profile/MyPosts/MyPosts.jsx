@@ -12,7 +12,7 @@ const MyPosts = props => {
 
   const onPostChange = () => {
     let text = newPostEl.current.value;
-    props.updateNewPostText(text);
+    props.onPostChangeContainer(text);
   };
 
   return (
@@ -26,7 +26,7 @@ const MyPosts = props => {
         />
         <Button
           onClick={() => {
-            props.addPost();
+            props.addPostContainer();
           }}
           variant='contained'
           color='primary'

@@ -14,7 +14,7 @@ const App = () => {
       <div className='appContainer'>
         <Header />
         <div className='appGridContent'>
-          <Aside />
+          {/* <Aside /> */}
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>

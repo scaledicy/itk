@@ -23,8 +23,7 @@ let rerenderEntireTree = () => {
 rerenderEntireTree();
 
 store.subscribe(() => {
-  let updateState = store.getState();
-  rerenderEntireTree(updateState);
+  rerenderEntireTree();
 });
 
 // If you want to start measuring performance in your app, pass a function

@@ -6,7 +6,7 @@ import Profile from "./components/Profile/Profile";
 import { Switch, Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-const App = props => {
+const App = () => {
   return (
     <>
       <CssBaseline />
@@ -14,15 +14,15 @@ const App = props => {
       <div className='appContainer'>
         <Header />
         <div className='appGridContent'>
-          <Aside friends={props.appState.sidebarPage.friends} />
+          <Aside />
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>
-                <Profile store={props.store} />
+                <Profile />
               </Route>
             </Switch>
             <Route path='/messages'>
-              <DialogsContainer store={props.store} />
+              <DialogsContainer />
             </Route>
           </div>
         </div>

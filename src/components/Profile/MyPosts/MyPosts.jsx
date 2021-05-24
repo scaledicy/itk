@@ -2,10 +2,6 @@ import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 import Button from "@material-ui/core/Button";
 import React from "react";
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../redux/ProfileReducer";
 
 const MyPosts = props => {
   let postEl = props.posts.map(el => (
@@ -16,7 +12,7 @@ const MyPosts = props => {
 
   const onPostChange = () => {
     let text = newPostEl.current.value;
-    props.dispatch(updateNewPostTextActionCreator(text));
+    props.updateNewPostText(text);
   };
 
   return (
@@ -29,7 +25,9 @@ const MyPosts = props => {
           value={props.newPostText}
         />
         <Button
-          onClick={() => props.dispatch(addPostActionCreator())}
+          onClick={() => {
+            props.addPost();
+          }}
           variant='contained'
           color='primary'
         >

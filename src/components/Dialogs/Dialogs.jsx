@@ -4,10 +4,6 @@ import Message from "./Message/Message";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import {
-  addMessageActionCreator,
-  updateNewMessageTextActionCreator,
-} from "../../redux/DialogsReducer";
 
 const useStyles = makeStyles({
   inputMessage: {
@@ -39,10 +35,14 @@ const Dialogs = props => {
     <Message key={el.id} id={el.id} message={el.message} />
   ));
 
+  const addMessage = () => {
+    props.addMessageContainer();
+  };
   const onMessageChange = () => {
     let text = newMessageEl.current.value;
-    props.dispatch(updateNewMessageTextActionCreator(text));
+    props.onMessageChangeContainer(text);
   };
+
   return (
     <>
       <div className={s.dialogsContainer}>
@@ -62,9 +62,7 @@ const Dialogs = props => {
                 className={classes.addMessage}
                 variant='contained'
                 color='primary'
-                onClick={() => {
-                  props.dispatch(addMessageActionCreator());
-                }}
+                onClick={addMessage}
               >
                 Add post
               </Button>

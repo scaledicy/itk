@@ -3,8 +3,8 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Aside from "./components/Aside/Aside";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import { Switch, Route } from "react-router-dom";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = props => {
   return (
@@ -18,17 +18,11 @@ const App = props => {
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>
-                <Profile
-                  profilePage={props.appState.profilePage}
-                  dispatch={props.dispatch}
-                />
+                <Profile store={props.store} />
               </Route>
             </Switch>
             <Route path='/messages'>
-              <Dialogs
-                messagesPage={props.appState.messagesPage}
-                dispatch={props.dispatch}
-              />
+              <DialogsContainer store={props.store} />
             </Route>
           </div>
         </div>

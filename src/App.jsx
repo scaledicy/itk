@@ -3,30 +3,34 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Aside from "./components/Aside/Aside";
 import Profile from "./components/Profile/Profile";
-import { Switch, Route } from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = () => {
   return (
     <>
-      <CssBaseline />
+      <CssBaseline/>
 
       <div className='appContainer'>
-        <Header />
+        <Header/>
         <div className='appGridContent'>
-          {/* <Aside /> */}
+          <Aside/>
           <div className='appContent'>
             <Switch>
               <Route path='/profile'>
-                <Profile />
+                <Profile/>
               </Route>
             </Switch>
             <Route path='/messages'>
-              <DialogsContainer />
+              <DialogsContainer/>
+            </Route>
+            <Route path='/users'>
+              <UsersContainer/>
             </Route>
           </div>
         </div>
-        <Footer />
+        <Footer/>
       </div>
     </>
   );

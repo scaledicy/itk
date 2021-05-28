@@ -3,18 +3,16 @@ import ReactDOM from "react-dom";
 import "./styles/styles.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import store from "./redux/ReduxStore";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </Router>,
   document.getElementById("root")
 );
 

@@ -1,16 +1,16 @@
 .dialogLink {
-  margin-bottom: 8px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-  a {
-    display: block;
-    padding: 8px 16px;
-    background-color: #fff;
-    border-radius: 10px;
-    &.active {
-      background-color: coral;
-      color: #fff;
+    margin-bottom: 8px;
+    &:last-child {
+        margin-bottom: 0;
     }
-  }
+    a {
+        display: block;
+        padding: 8px 16px;
+        background-color: #fff;
+        border-radius: 10px;
+        &.active {
+            background-color: coral;
+            color: #fff;
+        }
+    }
 }

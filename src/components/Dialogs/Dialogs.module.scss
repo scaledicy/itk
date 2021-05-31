@@ -1,39 +1,39 @@
 .dialogsContainer {
-  color: coral;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    color: coral;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .dialogsTitle {
-  text-align: center;
+    text-align: center;
 }
 
 .dialogs {
-  display: flex;
-  flex-grow: 1;
+    display: flex;
+    flex-grow: 1;
 }
 
 .dialogsContacts {
-  flex: 0 1 200px;
+    flex: 0 1 200px;
 }
 
 .dialogsChatContainer {
-  margin-left: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+    margin-left: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .dialogsChat {
-  background-color: #fff;
-  flex-grow: 1;
-  padding: 20px;
-  border-radius: 10px;
+    background-color: #fff;
+    flex-grow: 1;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .messageForm {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
 }

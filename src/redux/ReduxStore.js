@@ -5,10 +5,10 @@ import profileReducer from "./ProfileReducer";
 import usersReducer from "./UsersReducer";
 
 let reducers = combineReducers({
-  profilePage: profileReducer,
-  messagesPage: dialogsReducer,
-  sidebarPage: friendsReducer,
-  usersPage: usersReducer
+    profilePage: profileReducer,
+    messagesPage: dialogsReducer,
+    sidebarPage: friendsReducer,
+    usersPage: usersReducer,
 });
 
 let store = createStore(reducers);

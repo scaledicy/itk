@@ -14,15 +14,17 @@ const useStyles = makeStyles({
 });
 
 const Users = props => {
-    if (props.users.length === 0) {
-        axios
-            .get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(response => {
-                props.setUsers(response.data.items);
-            });
-    }
+    let getUsers = () => {
+        if (props.users.length === 0) {
+            axios
+                .get("https://social-network.samuraijs.com/api/1.0/users")
+                .then(response => {
+                    props.setUsers(response.data.items);
+                });
+        }
+    };
 
-    const classes = useStyles();
+    const classes = useStyles();   
 
     let user = props.users.map(u => {
         return (
@@ -76,6 +78,7 @@ const Users = props => {
     return (
         <div className={s.usersContainer}>
             <h1 className={s.usersTitle}>Users list</h1>
+            <button type="button" onClick={getUsers}>Get users</button>
             <div className={s.usersList}>{user}</div>
         </div>
     );

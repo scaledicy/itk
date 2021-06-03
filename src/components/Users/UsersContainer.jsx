@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 import loaderSVG from "../../assets/images/loader.svg";
 import {
-    followAC,
-    setCurrentPageAC,
-    setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setIsFetching,
+    setTotalUsersCount,
+    setUsers,
+    unFollow,
 } from "../../redux/UsersReducer";
 import axios from "axios";
 import React from "react";
@@ -57,7 +57,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = state => {
+const mapStateToProps = state => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -66,27 +66,14 @@ let mapStateToProps = state => {
         isFetching: state.usersPage.isFetching,
     };
 };
-let mapDispatchToProps = dispatch => {
-    return {
-        follow: userId => {
-            dispatch(followAC(userId));
-        },
-        unFollow: userId => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: users => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: pageNumber => {
-            dispatch(setCurrentPageAC(pageNumber));
-        },
-        setTotalUsersCount: totalCount => {
-            dispatch(setTotalUsersCountAC(totalCount));
-        },
-        setIsFetching: isFetching => {
-            dispatch(setIsFetchingAC(isFetching));
-        },
-    };
+
+const mapDispatchToProps = {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setIsFetching,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

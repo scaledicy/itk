@@ -35,12 +35,9 @@ const Dialogs = props => {
         <Message key={el.id} id={el.id} message={el.message} />
     ));
 
-    const addMessage = () => {
-        props.addMessageContainer();
-    };
     const onMessageChange = () => {
         let text = newMessageEl.current.value;
-        props.onMessageChangeContainer(text);
+        props.onMessageChange(text);
     };
 
     return (
@@ -62,7 +59,7 @@ const Dialogs = props => {
                                 className={classes.addMessage}
                                 variant='contained'
                                 color='primary'
-                                onClick={addMessage}
+                                onClick={props.addMessage}
                             >
                                 Add post
                             </Button>

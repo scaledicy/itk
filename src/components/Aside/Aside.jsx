@@ -15,9 +15,6 @@ const Friend = props => {
 
 const Aside = () => {
     let state = store.getState().sidebarPage.friends;
-    // let friends1 = useSelector(state => state.sidebarPage.friends);
-    // let dispatch = useDispatch();
-    // const addMessageContainer = dispatch(updateNewMessageTextActionCreator(text));
     let friends = state.map(el => (
         <Friend key={el.id} id={el.id} name={el.name} img={el.img} />
     ));

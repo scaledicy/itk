@@ -1,17 +1,20 @@
 .usersContainer {
     display: block;
     padding: 0 10px;
+    max-width: 940px;
+    margin: 0 auto;
 }
 
 .usersTitle {
     color: coral;
     text-align: center;
+    margin-bottom: 40px;
 }
 
 .usersList {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -10px;
+    margin: 20px -10px 0;
 }
 
 .userItem {
@@ -30,7 +33,7 @@
         }
         &.userEmpty {
             object-fit: contain;
-            padding: 10px 0;
+            padding: 10px 15px;
         }
     }
 }

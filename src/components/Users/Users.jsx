@@ -23,30 +23,6 @@ const Users = props => {
     return (
         <div className={s.usersContainer}>
             <h1 className={s.usersTitle}>Users list</h1>
-            <div className={s.paginationContainer}>
-                <Button variant='contained' color='primary'>
-                    Prev
-                </Button>
-                <ul>
-                    {pages.map(p => {
-                        return (
-                            <li
-                                className={
-                                    props.currentPage === p && s.selected
-                                }
-                                onClick={e => {
-                                    props.onPageChanged(p);
-                                }}
-                            >
-                                {p}
-                            </li>
-                        );
-                    })}
-                </ul>
-                <Button variant='contained' color='primary'>
-                    Next
-                </Button>
-            </div>
             <div className={s.usersList}>
                 {props.users.map((u, i) => {
                     return (
@@ -103,6 +79,24 @@ const Users = props => {
                         </div>
                     );
                 })}
+            </div>
+            <div className={s.paginationContainer}>
+                <ul>
+                    {pages.map(p => {
+                        return (
+                            <li
+                                className={
+                                    props.currentPage === p && s.selected
+                                }
+                                onClick={e => {
+                                    props.onPageChanged(p);
+                                }}
+                            >
+                                {p}
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
         </div>
     );

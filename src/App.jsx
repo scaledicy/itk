@@ -2,10 +2,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Aside from "./components/Aside/Aside";
-import Profile from "./components/Profile/Profile";
 import { Switch, Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = () => {
     return (
@@ -19,7 +19,7 @@ const App = () => {
                     <div className='appContent'>
                         <Switch>
                             <Route path='/profile'>
-                                <Profile />
+                                <ProfileContainer />
                             </Route>
                         </Switch>
                         <Route path='/messages'>

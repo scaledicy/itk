@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import userEmpty from "../../assets/images/user-empty.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import s from "./Users.module.scss";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles({
     btnFollow: {
@@ -27,19 +28,21 @@ const Users = props => {
                 {props.users.map((u, i) => {
                     return (
                         <div className={s.userItem} key={i} id={u.id}>
-                            {u.photos.small !== null ? (
-                                <img
-                                    className={s.userPhoto}
-                                    src={u.photos.small}
-                                    alt='userPhoto'
-                                />
-                            ) : (
-                                <img
-                                    className={s.userEmpty}
-                                    src={userEmpty}
-                                    alt='emptyPhoto'
-                                />
-                            )}
+                            <NavLink to={"/profile/" +  u.id}>
+                                {u.photos.small !== null ? (
+                                    <img
+                                        className={s.userPhoto}
+                                        src={u.photos.small}
+                                        alt='userPhoto'
+                                    />
+                                ) : (
+                                    <img
+                                        className={s.userEmpty}
+                                        src={userEmpty}
+                                        alt='emptyPhoto'
+                                    />
+                                )}
+                            </NavLink>
                             <div className={s.numberOfUser}>{u.id}</div>
                             <div className={s.userDesc}>
                                 <h1>{u.name}</h1>
@@ -85,9 +88,6 @@ const Users = props => {
                     {pages.map(p => {
                         return (
                             <li
-                                className={
-                                    props.currentPage === p && s.selected
-                                }
                                 onClick={e => {
                                     props.onPageChanged(p);
                                 }}

@@ -18,7 +18,7 @@ const App = () => {
                     <Aside />
                     <div className='appContent'>
                         <Switch>
-                            <Route path='/profile'>
+                            <Route path='/profile/:userId?'>
                                 <ProfileContainer />
                             </Route>
                         </Switch>

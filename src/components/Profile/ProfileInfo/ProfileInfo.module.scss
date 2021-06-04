@@ -30,6 +30,12 @@
 .profileDesc {
     font-size: 18px;
     font-weight: 700;
+    > div {
+        margin-bottom: 15px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
     span {
         color: coral;
         font-size: 20px;

@@ -27,8 +27,8 @@ const Users = props => {
             <div className={s.usersList}>
                 {props.users.map((u, i) => {
                     return (
-                        <div className={s.userItem} key={i} id={u.id}>
-                            <NavLink to={"/profile/" +  u.id}>
+                        <div className={s.userItem} key={u.id} id={u.id}>
+                            <NavLink to={"/profile/" + u.id}>
                                 {u.photos.small !== null ? (
                                     <img
                                         className={s.userPhoto}
@@ -85,12 +85,13 @@ const Users = props => {
             </div>
             <div className={s.paginationContainer}>
                 <ul>
-                    {pages.map(p => {
+                    {pages.map((p, i) => {
                         return (
                             <li
                                 onClick={e => {
                                     props.onPageChanged(p);
                                 }}
+                                key={i}
                             >
                                 {p}
                             </li>

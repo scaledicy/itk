@@ -17,6 +17,7 @@ const MyPosts = props => {
 
     return (
         <>
+            <h1 className={s.postTitle}>My Posts</h1>
             <div className={s.createPost}>
                 <textarea
                     ref={newPostEl}

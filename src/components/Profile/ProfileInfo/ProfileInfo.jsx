@@ -24,57 +24,78 @@ const ProfileInfo = props => {
                     )}
                 </div>
                 <div className={s.socialLinks}>
-                    <div>
-                        <img src={facebook} alt='facebook' />
-                        <span>{props.profile?.contacts?.facebook}</span>
-                    </div>
-                    <div>
-                        <img src={github} alt='github' />
-                        <span>{props.profile?.contacts?.github}</span>
-                    </div>
-                    <div>
-                        <img src={instagram} alt='instagram' />
-                        <span>{props.profile?.contacts?.instagram}</span>
-                    </div>
-                    <div>
-                        <img src={mainLink} alt='mainLink' />
-                        <span>{props.profile?.contacts?.mainLink}</span>
-                    </div>
-                    <div>
-                        <img src={twitter} alt='twitter' />
-                        <span>{props.profile?.contacts?.twitter}</span>
-                    </div>
-                    <div>
-                        <img src={vk} alt='vk' />
-                        <span>{props.profile?.contacts?.vk}</span>
-                    </div>
-                    <div>
-                        <img src={website} alt='website' />
-                        <span>{props.profile?.contacts?.website}</span>
-                    </div>
-                    <div>
-                        <img src={youtube} alt='youtube' />
-                        <span>{props.profile?.contacts?.youtube}</span>
-                    </div>
+                    {props.profile?.contacts?.facebook && (
+                        <div>
+                            <img src={facebook} alt='facebook' />
+                            <span>{props.profile?.contacts?.facebook}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.github && (
+                        <div>
+                            <img src={github} alt='github' />
+                            <span>{props.profile?.contacts?.github}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.instagram && (
+                        <div>
+                            <img src={instagram} alt='instagram' />
+                            <span>{props.profile?.contacts?.instagram}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.mainLink && (
+                        <div>
+                            <img src={mainLink} alt='mainLink' />
+                            <span>{props.profile?.contacts?.mainLink}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.twitter && (
+                        <div>
+                            <img src={twitter} alt='twitter' />
+                            <span>{props.profile?.contacts?.twitter}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.vk && (
+                        <div>
+                            <img src={vk} alt='vk' />
+                            <span>{props.profile?.contacts?.vk}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.website && (
+                        <div>
+                            <img src={website} alt='website' />
+                            <span>{props.profile?.contacts?.website}</span>
+                        </div>
+                    )}
+                    {props.profile?.contacts?.youtube && (
+                        <div>
+                            <img src={youtube} alt='youtube' />
+                            <span>{props.profile?.contacts?.youtube}</span>
+                        </div>
+                    )}
                 </div>
             </div>
             <h1 className={s.profileTitle}>About</h1>
             <div className={s.profileDesc}>
-                <div>
-                    <span>About me:</span>
-                    &nbsp;
-                    {props.profile?.aboutMe}
-                </div>
+                {props.profile?.aboutMe && (
+                    <div>
+                        <span>About me:</span>
+                        &nbsp;
+                        {props.profile?.aboutMe}
+                    </div>
+                )}
+
                 <div>
                     <span>Looking for work:</span>
                     &nbsp;
                     {props.profile?.lookingForAJob ? "Yes" : "No"}
                 </div>
-                <div>
-                    <span>Work preferences:</span>
-                    &nbsp;
-                    {props.profile?.lookingForAJobDescription}
-                </div>
+                {props.profile?.lookingForAJobDescription && (
+                    <div>
+                        <span>Work preferences:</span>
+                        &nbsp;
+                        {props.profile?.lookingForAJobDescription}
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,11 +1,11 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Aside from "./components/Aside/Aside";
 import { Switch, Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App = () => {
     return (
@@ -13,7 +13,7 @@ const App = () => {
             <CssBaseline />
 
             <div className='appContainer'>
-                <Header />
+                <HeaderContainer />
                 <div className='appGridContent'>
                     <Aside />
                     <div className='appContent'>

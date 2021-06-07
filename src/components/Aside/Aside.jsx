@@ -1,6 +1,6 @@
-import s from "./Aside.module.scss";
+import store from "redux/ReduxStore";
 import { NavLink } from "react-router-dom";
-import store from "../../redux/ReduxStore";
+import s from "./Aside.module.scss";
 
 const Friend = props => {
     return (

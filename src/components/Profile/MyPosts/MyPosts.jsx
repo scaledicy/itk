@@ -1,7 +1,7 @@
+import React from "react";
+import Button from "@material-ui/core/Button";
 import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
-import Button from "@material-ui/core/Button";
-import React from "react";
 
 const MyPosts = props => {
     let postEl = props.posts.map(el => (

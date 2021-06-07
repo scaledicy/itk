@@ -1,5 +1,6 @@
+import React from "react";
 import { connect } from "react-redux";
-import loaderSVG from "assets/images/loader.svg";
+import { usersAPI } from "api/api";
 import {
     follow,
     setCurrentPage,
@@ -8,9 +9,8 @@ import {
     setUsers,
     unFollow,
 } from "redux/UsersReducer";
-import React from "react";
 import Users from "./Users";
-import { usersAPI } from "api/api";
+import loaderSVG from "assets/images/loader.svg";
 
 class UsersContainer extends React.Component {
     componentDidMount() {

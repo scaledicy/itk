@@ -1,6 +1,6 @@
-import s from "./Header.module.scss";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import s from "./Header.module.scss";
 
 const Header = props => {
     return (

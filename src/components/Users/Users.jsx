@@ -1,9 +1,9 @@
-import Button from "@material-ui/core/Button";
-import userEmpty from "../../assets/images/user-empty.svg";
-import { makeStyles } from "@material-ui/core/styles";
-import s from "./Users.module.scss";
-import { NavLink } from "react-router-dom";
 import { usersAPI } from "api/api";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
+import s from "./Users.module.scss";
+import userEmpty from "assets/images/user-empty.svg";
 
 const useStyles = makeStyles({
     btnFollow: {

@@ -3,6 +3,7 @@ import userEmpty from "../../assets/images/user-empty.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import s from "./Users.module.scss";
 import { NavLink } from "react-router-dom";
+import * as axios from "axios";
 
 const useStyles = makeStyles({
     btnFollow: {
@@ -25,7 +26,7 @@ const Users = props => {
         <div className={s.usersContainer}>
             <h1 className={s.usersTitle}>Users list</h1>
             <div className={s.usersList}>
-                {props.users.map((u, i) => {
+                {props.users.map(u => {
                     return (
                         <div className={s.userItem} key={u.id} id={u.id}>
                             <NavLink to={"/profile/" + u.id}>
@@ -61,7 +62,27 @@ const Users = props => {
                                 </div>
                                 {u.followed ? (
                                     <Button
-                                        onClick={() => props.unFollow(u.id)}
+                                        onClick={() => {
+                                            axios
+                                                .delete(
+                                                    `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                                    {
+                                                        withCredentials: true,
+                                                        headers: {
+                                                            "API-KEY":
+                                                                "cdbdb97f-f6ce-4024-8670-0f55e55be85a",
+                                                        },
+                                                    }
+                                                )
+                                                .then(response => {
+                                                    if (
+                                                        response.data
+                                                            .resultCode === 0
+                                                    ) {
+                                                        props.unfollow(u.id);
+                                                    }
+                                                });
+                                        }}
                                         className={classes.btnFollow}
                                         variant='contained'
                                         color='secondary'
@@ -70,7 +91,28 @@ const Users = props => {
                                     </Button>
                                 ) : (
                                     <Button
-                                        onClick={() => props.follow(u.id)}
+                                        onClick={() => {
+                                            axios
+                                                .post(
+                                                    `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                                    {},
+                                                    {
+                                                        withCredentials: true,
+                                                        headers: {
+                                                            "API-KEY":
+                                                                "cdbdb97f-f6ce-4024-8670-0f55e55be85a",
+                                                        },
+                                                    }
+                                                )
+                                                .then(response => {
+                                                    if (
+                                                        response.data
+                                                            .resultCode === 0
+                                                    ) {
+                                                        props.follow(u.id);
+                                                    }
+                                                });
+                                        }}
                                         className={classes.btnFollow}
                                         variant='contained'
                                         color='primary'
@@ -88,7 +130,7 @@ const Users = props => {
                     {pages.map((p, i) => {
                         return (
                             <li
-                                onClick={e => {
+                                onClick={() => {
                                     props.onPageChanged(p);
                                 }}
                                 key={i}

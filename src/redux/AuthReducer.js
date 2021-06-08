@@ -1,3 +1,5 @@
+import { authAPI } from "api/api";
+
 const SET_USER_DATA = "SET_USER_DATA";
 
 let initialState = {
@@ -30,3 +32,13 @@ export const setAuthUserData = (userId, email, login) => ({
 });
 
 export default authReducer;
+
+//Thunk action creators
+export const fetchAuthUserData = () => dispatch => {
+    authAPI.checkAuth().then(data => {
+        if (data.resultCode === 0) {
+            let { id, email, login } = data.data;
+            dispatch(setAuthUserData(id, email, login));
+        }
+    });
+};

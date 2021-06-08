@@ -1,39 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { usersAPI } from "api/api";
-import {
-    follow,
-    setCurrentPage,
-    setIsFetching,
-    setIsFollowingProgress,
-    setTotalUsersCount,
-    setUsers,
-    unFollow,
-} from "redux/UsersReducer";
+import { follow, getUsers, setCurrentPage, unFollow } from "redux/UsersReducer";
 import Users from "./Users";
 import loaderSVG from "assets/images/loader.svg";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.setIsFetching(true);
-        usersAPI
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
-
     onPageChanged = pageNumber => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.setIsFetching(true);
-        usersAPI
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false);
-                this.props.setUsers(data.items);
-            });
+        this.props.getUsers(pageNumber, this.props.pageSize);
     };
 
     render() {
@@ -49,7 +25,6 @@ class UsersContainer extends React.Component {
                     users={this.props.users}
                     follow={this.props.follow}
                     unfollow={this.props.unFollow}
-                    setIsFollowingProgress={this.props.setIsFollowingProgress}
                     followingInProgress={this.props.followingInProgress}
                 />
             </>
@@ -71,11 +46,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     follow,
     unFollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    setIsFetching,
-    setIsFollowingProgress,
+    getUsers,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

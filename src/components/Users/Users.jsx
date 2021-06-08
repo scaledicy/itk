@@ -63,14 +63,25 @@ const Users = props => {
                                 {u.followed ? (
                                     <Button
                                         onClick={() => {
+                                            props.setIsFollowingProgress(
+                                                true,
+                                                u.id
+                                            );
                                             usersAPI
                                                 .unFollowUser(u.id)
                                                 .then(data => {
                                                     if (data.resultCode === 0) {
                                                         props.unfollow(u.id);
                                                     }
+                                                    props.setIsFollowingProgress(
+                                                        false,
+                                                        u.id
+                                                    );
                                                 });
                                         }}
+                                        disabled={props.followingInProgress.some(
+                                            id => id === u.id
+                                        )}
                                         className={classes.btnFollow}
                                         variant='contained'
                                         color='secondary'
@@ -80,14 +91,25 @@ const Users = props => {
                                 ) : (
                                     <Button
                                         onClick={() => {
+                                            props.setIsFollowingProgress(
+                                                true,
+                                                u.id
+                                            );
                                             usersAPI
                                                 .followUser(u.id)
                                                 .then(data => {
                                                     if (data.resultCode === 0) {
                                                         props.follow(u.id);
                                                     }
+                                                    props.setIsFollowingProgress(
+                                                        false,
+                                                        u.id
+                                                    );
                                                 });
                                         }}
+                                        disabled={props.followingInProgress.some(
+                                            id => id === u.id
+                                        )}
                                         className={classes.btnFollow}
                                         variant='contained'
                                         color='primary'

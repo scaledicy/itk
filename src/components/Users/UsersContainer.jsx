@@ -5,6 +5,7 @@ import {
     follow,
     setCurrentPage,
     setIsFetching,
+    setIsFollowingProgress,
     setTotalUsersCount,
     setUsers,
     unFollow,
@@ -27,10 +28,12 @@ class UsersContainer extends React.Component {
     onPageChanged = pageNumber => {
         this.props.setCurrentPage(pageNumber);
         this.props.setIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setIsFetching(false);
-            this.props.setUsers(data.items);
-        });
+        usersAPI
+            .getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.setIsFetching(false);
+                this.props.setUsers(data.items);
+            });
     };
 
     render() {
@@ -46,6 +49,8 @@ class UsersContainer extends React.Component {
                     users={this.props.users}
                     follow={this.props.follow}
                     unfollow={this.props.unFollow}
+                    setIsFollowingProgress={this.props.setIsFollowingProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         );
@@ -59,6 +64,7 @@ const mapStateToProps = state => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     };
 };
 
@@ -69,6 +75,7 @@ const mapDispatchToProps = {
     setCurrentPage,
     setTotalUsersCount,
     setIsFetching,
+    setIsFollowingProgress,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

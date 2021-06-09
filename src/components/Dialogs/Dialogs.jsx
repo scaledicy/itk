@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import s from "./Dialogs.module.scss";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
     inputMessage: {
@@ -40,8 +39,6 @@ const Dialogs = props => {
         let text = newMessageEl.current.value;
         props.onMessageChange(text);
     };
-
-    if (!props.isAuth) return <Redirect to='/login' />;
 
     return (
         <>

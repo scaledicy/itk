@@ -8,6 +8,7 @@ import twitter from "assets/images/social-icons/twitter.svg";
 import vk from "assets/images/social-icons/vk.svg";
 import website from "assets/images/social-icons/website.svg";
 import youtube from "assets/images/social-icons/youtube.svg";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 const ProfileInfo = props => {
     return (
@@ -97,6 +98,7 @@ const ProfileInfo = props => {
                     </div>
                 )}
             </div>
+            <ProfileStatus status={"hello"} />
         </div>
     );
 };

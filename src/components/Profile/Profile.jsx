@@ -8,7 +8,11 @@ const Profile = props => {
             <h1 className={s.profileTitle}>
                 Profile: {props.profile?.fullName}
             </h1>
-            <ProfileInfo profile={props.profile} />
+            <ProfileInfo
+                profile={props.profile}
+                status={props.status}
+                updateStatus={props.updateStatus}
+            />
             <MyPostsContainer />
         </>
     );

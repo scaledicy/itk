@@ -2,39 +2,48 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
+import { useFormik } from "formik";
+
+const PostForm = props => {
+    const formik = useFormik({
+        initialValues: {
+            newPostMessage: "",
+        },
+        onSubmit: values => {
+            props.addPost(values.newPostMessage);
+        },
+    });
+    return (
+        <form onSubmit={formik.handleSubmit} className={s.createPost}>
+            <textarea
+                onChange={formik.handleChange}
+                className={s.postTextarea}
+                value={formik.values.newPostMessage}
+                name='newPostMessage'
+                id='newPostMessage'
+            />
+            <Button type='submit' variant='contained' color='primary'>
+                Add post
+            </Button>
+        </form>
+    );
+};
 
 const MyPosts = props => {
-    let postEl = props.posts.map(el => (
-        <Post key={el.id} id={el.id} message={el.message} likes={el.likes} />
+    let postEl = props.posts.map((el, i) => (
+        <Post
+            key={"post" + i}
+            id={el.id}
+            message={el.message}
+            likes={el.likes}
+        />
     ));
-
-    let newPostEl = React.createRef();
-
-    const onPostChange = () => {
-        let text = newPostEl.current.value;
-        props.onPostChange(text);
-    };
 
     return (
         <>
             <h1 className={s.postTitle}>My Posts</h1>
-            <div className={s.createPost}>
-                <textarea
-                    ref={newPostEl}
-                    onChange={onPostChange}
-                    className={s.postTextarea}
-                    value={props.newPostText}
-                />
-                <Button
-                    onClick={() => {
-                        props.addPost();
-                    }}
-                    variant='contained'
-                    color='primary'
-                >
-                    Add post
-                </Button>
-            </div>
+            <PostForm addPost={props.addPost} />
+            <h1 style={{ fontSize: "156px" }}>useSelector</h1>
             <div className={s.postsContainer}>{postEl}</div>
         </>
     );

@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import s from "./Dialogs.module.scss";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import { useFormik } from "formik";
 
 const useStyles = makeStyles({
     inputMessage: {
@@ -24,21 +25,44 @@ const useStyles = makeStyles({
     },
 });
 
-const Dialogs = props => {
+const AddMessageForm = props => {
     const classes = useStyles();
-    const newMessageEl = React.createRef();
+    const formik = useFormik({
+        initialValues: {
+            addMessage: "",
+        },
+        onSubmit: values => {
+            props.addMessage(values.addMessage);
+        },
+    });
+    return (
+        <form onSubmit={formik.handleSubmit} className={s.messageForm}>
+            <textarea
+                id='inputMessage'
+                name='addMessage'
+                onChange={formik.handleChange}
+                value={formik.values.message}
+                className={classes.inputMessage}
+            />
+            <Button
+                variant='contained'
+                color='primary'
+                type='submit'
+                className={classes.addMessage}
+            >
+                Add post
+            </Button>
+        </form>
+    );
+};
 
+const Dialogs = props => {
     let messagesContacts = props.messagesPage.dialogs.map(el => (
         <DialogItem key={el.id} id={el.id} name={el.name} />
     ));
     let messages = props.messagesPage.messages.map(el => (
         <Message key={el.id} id={el.id} message={el.message} />
     ));
-
-    const onMessageChange = () => {
-        let text = newMessageEl.current.value;
-        props.onMessageChange(text);
-    };
 
     return (
         <>
@@ -48,22 +72,7 @@ const Dialogs = props => {
                     <ul className={s.dialogsContacts}>{messagesContacts}</ul>
                     <div className={s.dialogsChatContainer}>
                         <ul className={s.dialogsChat}>{messages}</ul>
-                        <div className={s.messageForm}>
-                            <textarea
-                                ref={newMessageEl}
-                                className={classes.inputMessage}
-                                value={props.messagesPage.newMessageText}
-                                onChange={onMessageChange}
-                            />
-                            <Button
-                                className={classes.addMessage}
-                                variant='contained'
-                                color='primary'
-                                onClick={props.addMessage}
-                            >
-                                Add post
-                            </Button>
-                        </div>
+                        <AddMessageForm addMessage={props.addMessage} />
                     </div>
                 </div>
             </div>

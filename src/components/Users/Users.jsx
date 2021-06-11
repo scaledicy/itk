@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import s from "./Users.module.scss";
 import userEmpty from "assets/images/user-empty.svg";
+import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles({
     btnFollow: {
@@ -17,13 +18,15 @@ const Users = props => {
     const classes = useStyles();
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-    let pages = [];
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i);
-    }
     return (
         <div className={s.usersContainer}>
             <h1 className={s.usersTitle}>Users list</h1>
+            <Pagination
+                count={pageCount}
+                onChange={(event, page) => props.onPageChanged(page)}
+                variant='outlined'
+                shape='rounded'
+            />
             <div className={s.usersList}>
                 {props.users.map(u => {
                     return (
@@ -92,22 +95,6 @@ const Users = props => {
                         </div>
                     );
                 })}
-            </div>
-            <div className={s.paginationContainer}>
-                <ul>
-                    {pages.map((p, i) => {
-                        return (
-                            <li
-                                onClick={() => {
-                                    props.onPageChanged(p);
-                                }}
-                                key={i}
-                            >
-                                {p}
-                            </li>
-                        );
-                    })}
-                </ul>
             </div>
         </div>
     );

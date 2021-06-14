@@ -3,12 +3,15 @@ import Button from "@material-ui/core/Button";
 import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 import { useFormik } from "formik";
+import { maxLength30 } from "utils/validators/validators";
 
 const PostForm = props => {
+    const validate = maxLength30;
     const formik = useFormik({
         initialValues: {
             newPostMessage: "",
         },
+        validate,
         onSubmit: values => {
             props.addPost(values.newPostMessage);
         },

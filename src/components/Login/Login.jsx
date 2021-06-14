@@ -1,32 +1,26 @@
 import { useFormik } from "formik";
+import { connect } from "react-redux";
+import { login } from "redux/AuthReducer";
+import { Redirect } from "react-router-dom";
 
-const Login = () => {
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-        },
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
+const LoginForm = props => {
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={props.formik.handleSubmit}>
             <label htmlFor='email'>Email Address</label>
             <input
                 id='email'
                 name='email'
                 type='email'
-                onChange={formik.handleChange}
-                value={formik.values.email}
+                onChange={props.formik.handleChange}
+                value={props.formik.values.email}
             />
             <label htmlFor='password'>Password</label>
             <input
                 id='password'
                 name='password'
                 type='password'
-                onChange={formik.handleChange}
-                value={formik.values.password}
+                onChange={props.formik.handleChange}
+                value={props.formik.values.password}
             />
 
             <button type='submit'>Submit</button>
@@ -34,4 +28,25 @@ const Login = () => {
     );
 };
 
-export default Login;
+const Login = props => {
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        onSubmit: values => {
+            props.login(values.email, values.password);
+        },
+    });
+    if (props.isAuth) {
+        return <Redirect to={"/profile"} />;
+    }
+    return <LoginForm formik={formik} />;
+};
+
+const mapStateToProps = state => ({
+    isAuth: state.auth.isAuth,
+});
+export default connect(mapStateToProps, {
+    login,
+})(Login);

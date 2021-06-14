@@ -25,6 +25,9 @@ const PostForm = props => {
                 name='newPostMessage'
                 id='newPostMessage'
             />
+            {formik.errors.newPostMessage && (
+                <div>{formik.errors.newPostMessage}</div>
+            )}
             <Button type='submit' variant='contained' color='primary'>
                 Add post
             </Button>

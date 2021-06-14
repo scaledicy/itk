@@ -10,7 +10,12 @@ const Header = props => {
                 alt='logo'
             />
             {props.isAuth ? (
-                props.login
+                <div>
+                    <span style={{ marginRight: "15px" }}>{props.login}</span>
+                    <button type='button' onClick={props.logout}>
+                        Logout
+                    </button>
+                </div>
             ) : (
                 <Button
                     component={Link}

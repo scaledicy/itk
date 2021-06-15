@@ -6,12 +6,12 @@ import loaderSVG from "assets/images/loader.svg";
 import { withAuthRedirect } from "hoc/withAuthRedirect";
 import { compose } from "redux";
 import {
-    getUsersPageUsers,
     getPageSize,
     getTotalUsersCount,
     getCurrentPage,
     getIsFetching,
     getFollowingInProgress,
+    getUsersSuperSelector,
 } from "redux/UsersSelectors";
 
 class UsersContainer extends React.Component {
@@ -44,7 +44,7 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        users: getUsersPageUsers(state),
+        users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),

@@ -8,7 +8,7 @@ import twitter from "assets/images/social-icons/twitter.svg";
 import vk from "assets/images/social-icons/vk.svg";
 import website from "assets/images/social-icons/website.svg";
 import youtube from "assets/images/social-icons/youtube.svg";
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 const ProfileInfo = props => {
     return (
@@ -98,7 +98,7 @@ const ProfileInfo = props => {
                     </div>
                 )}
             </div>
-            <ProfileStatus
+            <ProfileStatusWithHooks
                 status={props.status}
                 updateStatus={props.updateStatus}
             />

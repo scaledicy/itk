@@ -70,20 +70,19 @@ export const deletePost = postId => ({
 });
 
 //Thunk actions creators
-export const fetchUserProfile = userId => dispatch => {
-    profileAPI.getProfile(userId).then(data => dispatch(setUserProfile(data)));
+export const fetchUserProfile = userId => async dispatch => {
+    let response = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(response.data));
 };
 
-export const getStatus = userId => dispatch => {
-    profileAPI.getStatus(userId).then(data => {
-        dispatch(setStatus(data));
-    });
+export const getStatus = userId => async dispatch => {
+    let response = await profileAPI.getStatus(userId);
+    dispatch(setStatus(response.data));
 };
 
-export const updateStatus = status => dispatch => {
-    profileAPI.updateStatus(status).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setStatus(status));
-        }
-    });
+export const updateStatus = status => async dispatch => {
+    let response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+    }
 };

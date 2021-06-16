@@ -10,55 +10,41 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 5) {
-        return instance
-            .get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data);
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`);
     },
     unFollowUser(userId) {
-        return instance
-            .delete(`follow/${userId}`)
-            .then(response => response.data);
+        return instance.delete(`follow/${userId}`);
     },
     followUser(userId) {
-        return instance
-            .post(`follow/${userId}`)
-            .then(response => response.data);
+        return instance.post(`follow/${userId}`);
     },
 };
 
 export const authAPI = {
     checkAuth() {
-        return instance.get("auth/me").then(response => response.data);
+        return instance.get("auth/me");
     },
     login(email, password) {
-        return instance
-            .post("auth/login", {
-                email,
-                password,
-            })
-            .then(response => response.data);
+        return instance.post("auth/login", {
+            email,
+            password,
+        });
     },
     logout() {
-        return instance.delete("auth/login").then(response => response.data);
+        return instance.delete("auth/login");
     },
 };
 
 export const profileAPI = {
     getProfile(userId) {
-        return instance
-            .get(`profile/${userId}`)
-            .then(response => response.data);
+        return instance.get(`profile/${userId}`);
     },
     getStatus(userId) {
-        return instance
-            .get(`profile/status/${userId}`)
-            .then(response => response.data);
+        return instance.get(`profile/status/${userId}`);
     },
     updateStatus(status) {
-        return instance
-            .put("profile/status/", {
-                status: status,
-            })
-            .then(response => response.data);
+        return instance.put("profile/status/", {
+            status: status,
+        });
     },
 };

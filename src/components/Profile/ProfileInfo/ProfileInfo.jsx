@@ -9,10 +9,14 @@ import vk from "assets/images/social-icons/vk.svg";
 import website from "assets/images/social-icons/website.svg";
 import youtube from "assets/images/social-icons/youtube.svg";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import sprite from "assets/images/sprite.svg";
 
 const ProfileInfo = props => {
     return (
         <div className={s.profileContainer}>
+            <svg>
+                <use href={sprite + "#river"}></use>
+            </svg>
             <div className={s.profileHeader}>
                 <div className={s.profileImg}>
                     {props.profile?.photos?.large ? (

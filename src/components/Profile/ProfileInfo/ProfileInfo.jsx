@@ -14,7 +14,6 @@ import sprite from "assets/images/sprite.svg";
 const ProfileInfo = props => {
     const onMainPhotoSelected = e => {
         if (e.target.files.length) {
-            console.log(e.target.files[0]);
             props.savePhoto(e.target.files[0]);
         }
     };

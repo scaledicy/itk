@@ -19,9 +19,7 @@ const useStyles = makeStyles({
 const Users = props => {
     const dispatch = useDispatch();
 
-    console.log(props);
     const classes = useStyles();
-    // let pageCount = Math.ceil(props.totalUsersCount / prop.pageSize);
     const pageCount = useSelector(state => state.usersPage.pageCost);
 
     return (

@@ -12,6 +12,12 @@ import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 import sprite from "assets/images/sprite.svg";
 
 const ProfileInfo = props => {
+    const onMainPhotoSelected = e => {
+        if (e.target.files.length) {
+            console.log(e.target.files[0]);
+            props.savePhoto(e.target.files[0]);
+        }
+    };
     return (
         <div className={s.profileContainer}>
             <svg>
@@ -28,6 +34,9 @@ const ProfileInfo = props => {
                         <img src={userEmpty} alt='emptyPhoto' />
                     )}
                 </div>
+                {props.isOwner && (
+                    <input type='file' onChange={onMainPhotoSelected} />
+                )}
                 <div className={s.socialLinks}>
                     {props.profile?.contacts?.facebook && (
                         <div>

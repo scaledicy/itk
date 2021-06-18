@@ -19,7 +19,7 @@ const Header = props => {
             ) : (
                 <Button
                     component={Link}
-                    to={"/login"}
+                    to='/login'
                     variant='contained'
                     color='primary'
                 >

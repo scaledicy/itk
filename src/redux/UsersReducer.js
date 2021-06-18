@@ -8,6 +8,7 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCH = "TOGGLE_IS_FETCH";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
+const SET_PAGE_COST = "SET_PAGE_COST";
 
 let initialState = {
     users: [],
@@ -16,6 +17,7 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [],
+    pageCost: 1,
 };
 
 const usersReducers = (state = initialState, action) => {
@@ -38,6 +40,8 @@ const usersReducers = (state = initialState, action) => {
             return { ...state, users: [...action.users] };
         case SET_CURRENT_PAGE:
             return { ...state, currentPage: action.currentPage };
+        case SET_PAGE_COST:
+            return { ...state, pageCost: action.cost };
         case SET_TOTAL_USERS_COUNT:
             return { ...state, totalUsersCount: action.count };
         case TOGGLE_IS_FETCH:
@@ -68,6 +72,10 @@ export const setCurrentPage = currentPage => ({
     type: SET_CURRENT_PAGE,
     currentPage,
 });
+export const setCostPage = cost => ({
+    type: SET_PAGE_COST,
+    cost,
+});
 export const setTotalUsersCount = totalUsersCount => ({
     type: SET_TOTAL_USERS_COUNT,
     count: totalUsersCount,
@@ -83,12 +91,14 @@ export const setIsFollowingProgress = (isFetching, userId) => ({
 });
 
 //Thunk actions creators
-export const getUsers = (currentPage, pageSize) => async dispatch => {
+export const getUsers = currentPage => async (dispatch, getState) => {
+    const pageSize = getState().usersPage.pageSize;
     dispatch(setIsFetching(true));
     let response = await usersAPI.getUsers(currentPage, pageSize);
     dispatch(setIsFetching(false));
     dispatch(setUsers(response.data.items));
     dispatch(setTotalUsersCount(response.data.totalCount));
+    dispatch(setCostPage(Math.ceil(response.data.totalCount / pageSize)));
 };
 
 export const follow = userId => async dispatch => {

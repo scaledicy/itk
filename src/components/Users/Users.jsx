@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import s from "./Users.module.scss";
 import userEmpty from "assets/images/user-empty.svg";
 import Pagination from "@material-ui/lab/Pagination";
+import { setCurrentPage } from "../../redux/UsersReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
     btnFollow: {
@@ -15,15 +17,19 @@ const useStyles = makeStyles({
 });
 
 const Users = props => {
+    const dispatch = useDispatch();
+
+    console.log(props);
     const classes = useStyles();
-    let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    // let pageCount = Math.ceil(props.totalUsersCount / prop.pageSize);
+    const pageCount = useSelector(state => state.usersPage.pageCost);
 
     return (
         <div className={s.usersContainer}>
             <h1 className={s.usersTitle}>Users list</h1>
             <Pagination
                 count={pageCount}
-                onChange={(event, page) => props.onPageChanged(page)}
+                onChange={(event, page) => dispatch(setCurrentPage(page))}
                 variant='outlined'
                 shape='rounded'
             />

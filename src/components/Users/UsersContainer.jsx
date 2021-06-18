@@ -1,12 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { follow, getUsers, setCurrentPage, unFollow } from "redux/UsersReducer";
+import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { follow, getUsers, unFollow } from "redux/UsersReducer";
 import Users from "./Users";
 import loaderSVG from "assets/images/loader.svg";
 import { withAuthRedirect } from "hoc/withAuthRedirect";
 import { compose } from "redux";
 import {
-    getPageSize,
     getTotalUsersCount,
     getCurrentPage,
     getIsFetching,
@@ -14,53 +13,47 @@ import {
     getUsersSuperSelector,
 } from "redux/UsersSelectors";
 
-class UsersContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
-    }
-    onPageChanged = pageNumber => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
-    };
+const UsersContainer = () => {
+    const dispatch = useDispatch();
 
-    render() {
-        return (
-            <>
-                {this.props.isFetching && <img src={loaderSVG} alt='loader' />}
+    //Data from global state
+    const data = useSelector(state => {
+        return {
+            users: getUsersSuperSelector(state),
+            totalUsersCount: getTotalUsersCount(state),
+            currentPage: getCurrentPage(state),
+            isFetching: getIsFetching(state),
+            followingInProgress: getFollowingInProgress(state),
+        };
+    });
 
-                <Users
-                    totalUsersCount={this.props.totalUsersCount}
-                    pageSize={this.props.pageSize}
-                    currentPage={this.props.currentPage}
-                    onPageChanged={this.onPageChanged}
-                    users={this.props.users}
-                    follow={this.props.follow}
-                    unfollow={this.props.unFollow}
-                    followingInProgress={this.props.followingInProgress}
-                />
-            </>
-        );
-    }
-}
+    //Dispatch handlers
+    const followHandler = userId => dispatch(follow(userId));
+    const unFollowHandler = userId => dispatch(unFollow(userId));
+    const getUsersHandler = useCallback(
+        page => dispatch(getUsers(page)),
+        [dispatch]
+    );
 
-const mapStateToProps = state => {
-    return {
-        users: getUsersSuperSelector(state),
-        pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state),
-    };
+    useEffect(() => {
+        getUsersHandler(data.currentPage);
+    }, [getUsersHandler, data.currentPage]);
+
+    return (
+        <>
+            {data.isFetching && <img src={loaderSVG} alt='loader' />}
+
+            <Users
+                totalUsersCount={data.totalUsersCount}
+                currentPage={data.currentPage}
+                onPageChanged={getUsersHandler}
+                users={data.users}
+                follow={followHandler}
+                unfollow={unFollowHandler}
+                followingInProgress={data.followingInProgress}
+            />
+        </>
+    );
 };
 
-const mapDispatchToProps = {
-    follow,
-    unFollow,
-    setCurrentPage,
-    getUsers,
-};
-
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect
-)(UsersContainer);
+export default compose(withAuthRedirect)(UsersContainer);

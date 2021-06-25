@@ -1,4 +1,4 @@
-import s from "./Post.module.scss";
+import s from './Post.module.scss'
 
 const Post = props => {
     return (
@@ -13,7 +13,7 @@ const Post = props => {
             </div>
             <b>likes: {props.likes}</b>
         </div>
-    );
-};
+    )
+}
 
-export default Post;
+export default Post

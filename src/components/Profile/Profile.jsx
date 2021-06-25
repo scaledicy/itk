@@ -1,7 +1,7 @@
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import s from "./Profile.module.scss";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import sprite from "assets/images/sprite.svg";
+import MyPostsContainer from './MyPosts/MyPostsContainer'
+import s from './Profile.module.scss'
+import ProfileInfo from './ProfileInfo/ProfileInfo'
+import sprite from 'assets/images/sprite.svg'
 
 const Profile = props => {
     return (
@@ -11,7 +11,7 @@ const Profile = props => {
             </h1>
             <div>
                 <svg>
-                    <use href={sprite + "#react-logo"}></use>
+                    <use href={sprite + '#react-logo'}></use>
                 </svg>
             </div>
             <ProfileInfo
@@ -23,7 +23,7 @@ const Profile = props => {
             />
             <MyPostsContainer />
         </>
-    );
-};
+    )
+}
 
-export default Profile;
+export default Profile

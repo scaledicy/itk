@@ -1,26 +1,26 @@
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import { NavLink } from "react-router-dom";
-import s from "./Users.module.scss";
-import userEmpty from "assets/images/user-empty.svg";
-import Pagination from "@material-ui/lab/Pagination";
-import { setCurrentPage } from "../../redux/UsersReducer";
-import { useDispatch, useSelector } from "react-redux";
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+import { NavLink } from 'react-router-dom'
+import s from './Users.module.scss'
+import userEmpty from 'assets/images/user-empty.svg'
+import Pagination from '@material-ui/lab/Pagination'
+import { setCurrentPage } from '../../redux/UsersReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
 const useStyles = makeStyles({
     btnFollow: {
-        width: "100%",
+        width: '100%',
         marginTop: 20,
         fontSize: 16,
         padding: 10,
     },
-});
+})
 
 const Users = props => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const classes = useStyles();
-    const pageCount = useSelector(state => state.usersPage.pageCost);
+    const classes = useStyles()
+    const pageCount = useSelector(state => state.usersPage.pageCost)
 
     return (
         <div className={s.usersContainer}>
@@ -35,7 +35,7 @@ const Users = props => {
                 {props.users.map(u => {
                     return (
                         <div className={s.userItem} key={u.id} id={u.id}>
-                            <NavLink to={"/profile/" + u.id}>
+                            <NavLink to={'/profile/' + u.id}>
                                 {u.photos.small !== null ? (
                                     <img
                                         className={s.userPhoto}
@@ -60,7 +60,7 @@ const Users = props => {
                                             u.followed ? s.followed : null
                                         }
                                     >
-                                        {u.followed ? "Followed" : "Unfollowed"}
+                                        {u.followed ? 'Followed' : 'Unfollowed'}
                                     </span>
                                 </div>
                                 <div className={s.statusMessage}>
@@ -69,7 +69,7 @@ const Users = props => {
                                 {u.followed ? (
                                     <Button
                                         onClick={() => {
-                                            props.unfollow(u.id);
+                                            props.unfollow(u.id)
                                         }}
                                         disabled={props.followingInProgress.some(
                                             id => id === u.id
@@ -83,7 +83,7 @@ const Users = props => {
                                 ) : (
                                     <Button
                                         onClick={() => {
-                                            props.follow(u.id);
+                                            props.follow(u.id)
                                         }}
                                         disabled={props.followingInProgress.some(
                                             id => id === u.id
@@ -97,11 +97,11 @@ const Users = props => {
                                 )}
                             </div>
                         </div>
-                    );
+                    )
                 })}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Users;
+export default Users

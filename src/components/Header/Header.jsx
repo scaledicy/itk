@@ -1,6 +1,6 @@
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-import s from "./Header.module.scss";
+import Button from '@material-ui/core/Button'
+import { Link } from 'react-router-dom'
+import s from './Header.module.scss'
 
 const Header = props => {
     return (
@@ -11,7 +11,7 @@ const Header = props => {
             />
             {props.isAuth ? (
                 <div>
-                    <span style={{ marginRight: "15px" }}>{props.login}</span>
+                    <span style={{ marginRight: '15px' }}>{props.login}</span>
                     <button type='button' onClick={props.logout}>
                         Logout
                     </button>
@@ -27,7 +27,7 @@ const Header = props => {
                 </Button>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default Header;
+export default Header

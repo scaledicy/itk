@@ -1,26 +1,26 @@
-import s from "./ProfileInfo.module.scss";
-import userEmpty from "assets/images/user-empty.svg";
-import facebook from "assets/images/social-icons/facebook.svg";
-import github from "assets/images/social-icons/github.svg";
-import instagram from "assets/images/social-icons/instagram.svg";
-import mainLink from "assets/images/social-icons/main-link.svg";
-import twitter from "assets/images/social-icons/twitter.svg";
-import vk from "assets/images/social-icons/vk.svg";
-import website from "assets/images/social-icons/website.svg";
-import youtube from "assets/images/social-icons/youtube.svg";
-import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
-import sprite from "assets/images/sprite.svg";
+import s from './ProfileInfo.module.scss'
+import userEmpty from 'assets/images/user-empty.svg'
+import facebook from 'assets/images/social-icons/facebook.svg'
+import github from 'assets/images/social-icons/github.svg'
+import instagram from 'assets/images/social-icons/instagram.svg'
+import mainLink from 'assets/images/social-icons/main-link.svg'
+import twitter from 'assets/images/social-icons/twitter.svg'
+import vk from 'assets/images/social-icons/vk.svg'
+import website from 'assets/images/social-icons/website.svg'
+import youtube from 'assets/images/social-icons/youtube.svg'
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
+import sprite from 'assets/images/sprite.svg'
 
 const ProfileInfo = props => {
     const onMainPhotoSelected = e => {
         if (e.target.files.length) {
-            props.savePhoto(e.target.files[0]);
+            props.savePhoto(e.target.files[0])
         }
-    };
+    }
     return (
         <div className={s.profileContainer}>
             <svg>
-                <use href={sprite + "#river"}></use>
+                <use href={sprite + '#river'}></use>
             </svg>
             <div className={s.profileHeader}>
                 <div className={s.profileImg}>
@@ -100,7 +100,7 @@ const ProfileInfo = props => {
                 <div>
                     <span>Looking for work:</span>
                     &nbsp;
-                    {props.profile?.lookingForAJob ? "Yes" : "No"}
+                    {props.profile?.lookingForAJob ? 'Yes' : 'No'}
                 </div>
                 {props.profile?.lookingForAJobDescription && (
                     <div>
@@ -115,7 +115,7 @@ const ProfileInfo = props => {
                 updateStatus={props.updateStatus}
             />
         </div>
-    );
-};
+    )
+}
 
-export default ProfileInfo;
+export default ProfileInfo

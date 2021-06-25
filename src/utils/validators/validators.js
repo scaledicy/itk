@@ -1,15 +1,15 @@
 export const requiredField = values => {
-    const errors = {};
+    const errors = {}
     if (!values.newPostMessage) {
-        errors.newPostMessage = "Required";
+        errors.newPostMessage = 'Required'
     }
-    return errors;
-};
+    return errors
+}
 
 export const maxLength30 = values => {
-    const errors = {};
+    const errors = {}
     if (values.newPostMessage.length > 30) {
-        errors.newPostMessage = "Max length 30 symbols";
+        errors.newPostMessage = 'Max length 30 symbols'
     }
-    return errors;
-};
+    return errors
+}

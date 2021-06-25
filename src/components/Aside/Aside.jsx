@@ -1,6 +1,6 @@
-import store from "redux/ReduxStore";
-import { NavLink } from "react-router-dom";
-import s from "./Aside.module.scss";
+import store from 'redux/ReduxStore'
+import { NavLink } from 'react-router-dom'
+import s from './Aside.module.scss'
 
 const Friend = props => {
     return (
@@ -10,14 +10,14 @@ const Friend = props => {
                 <span>{props.name}</span>
             </a>
         </li>
-    );
-};
+    )
+}
 
 const Aside = () => {
-    let state = store.getState().sidebarPage.friends;
+    let state = store.getState().sidebarPage.friends
     let friends = state.map(el => (
         <Friend key={el.id} id={el.id} name={el.name} img={el.img} />
-    ));
+    ))
     return (
         <div className={s.asideContainer}>
             <ul className={s.asideList}>
@@ -45,7 +45,7 @@ const Aside = () => {
             </ul>
             <ul className={s.friendsList}>{friends}</ul>
         </div>
-    );
-};
+    )
+}
 
-export default Aside;
+export default Aside

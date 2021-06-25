@@ -1,20 +1,20 @@
-import Button from "@material-ui/core/Button";
-import s from "./MyPosts.module.scss";
-import Post from "./Post/Post";
-import { useFormik } from "formik";
-import { maxLength30 } from "utils/validators/validators";
+import Button from '@material-ui/core/Button'
+import s from './MyPosts.module.scss'
+import Post from './Post/Post'
+import { useFormik } from 'formik'
+import { maxLength30 } from 'utils/validators/validators'
 
 const PostForm = props => {
-    const validate = maxLength30;
+    const validate = maxLength30
     const formik = useFormik({
         initialValues: {
-            newPostMessage: "",
+            newPostMessage: '',
         },
         validate,
         onSubmit: values => {
-            props.addPost(values.newPostMessage);
+            props.addPost(values.newPostMessage)
         },
-    });
+    })
     return (
         <form onSubmit={formik.handleSubmit} className={s.createPost}>
             <textarea
@@ -31,27 +31,27 @@ const PostForm = props => {
                 Add post
             </Button>
         </form>
-    );
-};
+    )
+}
 
 const MyPosts = props => {
     let postEl = props.posts.map((el, i) => (
         <Post
-            key={"post" + i}
+            key={'post' + i}
             id={el.id}
             message={el.message}
             likes={el.likes}
         />
-    ));
+    ))
 
     return (
         <>
             <h1 className={s.postTitle}>My Posts</h1>
             <PostForm addPost={props.addPost} />
-            <h1 style={{ fontSize: "156px" }}>useSelector</h1>
+            <h1 style={{ fontSize: '156px' }}>useSelector</h1>
             <div className={s.postsContainer}>{postEl}</div>
         </>
-    );
-};
+    )
+}
 
-export default MyPosts;
+export default MyPosts

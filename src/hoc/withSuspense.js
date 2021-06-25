@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense } from 'react'
 
 export const withSuspense = Component => {
     return props => {
@@ -6,6 +6,6 @@ export const withSuspense = Component => {
             <Suspense fallback={<div>Loading...</div>}>
                 <Component {...props} />
             </Suspense>
-        );
-    };
-};
+        )
+    }
+}

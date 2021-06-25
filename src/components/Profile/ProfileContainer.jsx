@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import {
     fetchUserProfile,
     getStatus,
@@ -8,62 +8,48 @@ import {
     updateStatus,
 } from "redux/ProfileReducer";
 import Profile from "./Profile";
-import { withAuthRedirect } from "hoc/withAuthRedirect";
-import { compose } from "redux";
 
-class ProfileContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userId:
-                this.props.match.params.userId || this.props.authorizedUserId,
+const ProfileContainerF = () => {
+    const params = useParams();
+    const dispatch = useDispatch();
+
+    //Map dispatch to props
+    const data = useSelector(state => {
+        return {
+            profile: state.profilePage.profile,
+            status: state.profilePage.status,
+            authorizedUserId: state.auth.userId,
         };
-    }
-    updateProfile(userId) {
-        this.props.fetchUserProfile(userId);
-        this.props.getStatus(userId);
-    }
-    componentDidMount() {
-        this.updateProfile(this.state.userId);
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const userId =
-            this.props.match.params.userId || this.props.authorizedUserId;
+    });
 
-        if (userId !== this.state.userId) {
-            this.setState({ userId });
-            this.updateProfile(userId);
-        }
-    }
+    const userId = params.userId || data.authorizedUserId;
 
-    render() {
-        return (
-            <Profile
-                {...this.props}
-                profile={this.props.profile}
-                status={this.props.status}
-                updateStatus={this.props.updateStatus}
-                isOwner={!this.props.match.params.userId}
-                savePhoto={this.props.savePhoto}
-            />
-        );
-    }
-}
+    //Dispatch handlers
+    const fetchUserProfileHandler = useCallback(
+        userId => dispatch(fetchUserProfile(userId)),
+        [dispatch]
+    );
+    const savePhotoHandler = file => dispatch(savePhoto(file));
+    const getStatusHandler = useCallback(
+        userId => dispatch(getStatus(userId)),
+        [dispatch]
+    );
+    const updateStatusHandler = status => dispatch(updateStatus(status));
 
-const mapStateToProps = state => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-});
-const mapDispatchToProps = {
-    fetchUserProfile,
-    getStatus,
-    updateStatus,
-    savePhoto,
+    useEffect(() => {
+        fetchUserProfileHandler(userId);
+        getStatusHandler(userId);
+    }, [userId, fetchUserProfileHandler, getStatusHandler]);
+
+    return (
+        <Profile
+            profile={data.profile}
+            status={data.status}
+            updateStatus={updateStatusHandler}
+            isOwner={!params.userId}
+            savePhoto={savePhotoHandler}
+        />
+    );
 };
 
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    withRouter,
-    withAuthRedirect
-)(ProfileContainer);
+export default ProfileContainerF;

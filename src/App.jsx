@@ -7,9 +7,7 @@ import Login from './components/Login/Login'
 import React from 'react'
 import { withSuspense } from './hoc/withSuspense'
 
-const ProfileContainer = React.lazy(() =>
-    import('./components/Profile/ProfileContainer')
-)
+const Profile = React.lazy(() => import('./components/Profile/Profile'))
 const DialogsContainer = React.lazy(() =>
     import('./components/Dialogs/DialogsContainer')
 )
@@ -30,7 +28,7 @@ const App = () => {
                         <Switch>
                             <Route
                                 path='/profile/:userId?'
-                                render={withSuspense(ProfileContainer)}
+                                render={withSuspense(Profile)}
                             />
                         </Switch>
                         <Route

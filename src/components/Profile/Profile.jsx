@@ -2,12 +2,14 @@ import MyPostsContainer from './MyPosts/MyPostsContainer'
 import s from './Profile.module.scss'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import sprite from 'assets/images/sprite.svg'
+import useProfileContainer from './useProfileContainer'
 
-const Profile = props => {
+const Profile = () => {
+    const { data, handlers } = useProfileContainer()
     return (
         <>
             <h1 className={s.profileTitle}>
-                Profile: {props.profile?.fullName}
+                Profile: {data.profile?.fullName}
             </h1>
             <div>
                 <svg>
@@ -15,11 +17,11 @@ const Profile = props => {
                 </svg>
             </div>
             <ProfileInfo
-                profile={props.profile}
-                status={props.status}
-                updateStatus={props.updateStatus}
-                isOwner={props.isOwner}
-                savePhoto={props.savePhoto}
+                profile={data.profile}
+                status={data.status}
+                updateStatus={handlers.updateStatus}
+                isOwner={data.isOwner}
+                savePhoto={handlers.savePhoto}
             />
             <MyPostsContainer />
         </>

@@ -4,6 +4,9 @@ import s from './Dialogs.module.scss'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { addMessage } from 'redux/DialogsReducer'
+import { withAuthRedirect } from 'hoc/withAuthRedirect'
 
 const useStyles = makeStyles({
     inputMessage: {
@@ -55,28 +58,34 @@ const AddMessageForm = props => {
     )
 }
 
-const Dialogs = props => {
-    let messagesContacts = props.messagesPage.dialogs.map(el => (
+const Dialogs = () => {
+    const dispatch = useDispatch()
+
+    const messagesPage = useSelector(state => state.messagesPage)
+
+    const addMessageHandler = messageText => {
+        dispatch(addMessage(messageText))
+    }
+
+    const messagesContacts = messagesPage.dialogs.map(el => (
         <DialogItem key={el.id} id={el.id} name={el.name} />
     ))
-    let messages = props.messagesPage.messages.map(el => (
+    const messages = messagesPage.messages.map(el => (
         <Message key={el.id} id={el.id} message={el.message} />
     ))
 
     return (
-        <>
-            <div className={s.dialogsContainer}>
-                <h1 className={s.dialogsTitle}>Messages</h1>
-                <div className={s.dialogs}>
-                    <ul className={s.dialogsContacts}>{messagesContacts}</ul>
-                    <div className={s.dialogsChatContainer}>
-                        <ul className={s.dialogsChat}>{messages}</ul>
-                        <AddMessageForm addMessage={props.addMessage} />
-                    </div>
+        <div className={s.dialogsContainer}>
+            <h1 className={s.dialogsTitle}>Messages</h1>
+            <div className={s.dialogs}>
+                <ul className={s.dialogsContacts}>{messagesContacts}</ul>
+                <div className={s.dialogsChatContainer}>
+                    <ul className={s.dialogsChat}>{messages}</ul>
+                    <AddMessageForm addMessage={addMessageHandler} />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
-export default Dialogs
+export default withAuthRedirect(Dialogs)

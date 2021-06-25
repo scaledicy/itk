@@ -8,9 +8,7 @@ import React from 'react'
 import { withSuspense } from './hoc/withSuspense'
 
 const Profile = React.lazy(() => import('./components/Profile/Profile'))
-const DialogsContainer = React.lazy(() =>
-    import('./components/Dialogs/DialogsContainer')
-)
+const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'))
 const UsersContainer = React.lazy(() =>
     import('./components/Users/UsersContainer')
 )
@@ -33,7 +31,7 @@ const App = () => {
                         </Switch>
                         <Route
                             path='/messages'
-                            render={withSuspense(DialogsContainer)}
+                            render={withSuspense(Dialogs)}
                         />
                         <Route
                             path='/users'

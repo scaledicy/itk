@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect } from 'react'
 import {
+    fetchUpdateUserProfile,
     fetchUserProfile,
     getStatus,
     savePhoto,
@@ -40,6 +41,10 @@ const useProfileContainer = () => {
         status => dispatch(updateStatus(status)),
         [dispatch]
     )
+    const saveProfileHandler = useCallback(
+        profile => dispatch(fetchUpdateUserProfile(profile)),
+        [dispatch]
+    )
 
     useEffect(() => {
         if (userId) {
@@ -57,6 +62,7 @@ const useProfileContainer = () => {
         handlers: {
             updateStatus: updateStatusHandler,
             savePhoto: savePhotoHandler,
+            saveProfile: saveProfileHandler,
         },
     }
 }

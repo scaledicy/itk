@@ -89,6 +89,16 @@ export const fetchUserProfile = userId => async dispatch => {
     dispatch(setUserProfile(response.data))
 }
 
+export const fetchUpdateUserProfile = profile => async (dispatch, getState) => {
+    const userId = getState().auth.userId
+    let response = await profileAPI.updateProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(fetchUserProfile(userId))
+    } else {
+        return Promise.reject(response.data.messages[0])
+    }
+}
+
 export const getStatus = userId => async dispatch => {
     let response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))

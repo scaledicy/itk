@@ -24,10 +24,11 @@ export const authAPI = {
     checkAuth() {
         return instance.get('auth/me')
     },
-    login(email, password) {
+    login(email, password, captcha) {
         return instance.post('auth/login', {
             email,
             password,
+            captcha,
         })
     },
     logout() {
@@ -58,5 +59,11 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data',
             },
         })
+    },
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get('security/get-captcha-url')
     },
 }

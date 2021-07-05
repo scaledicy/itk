@@ -4,8 +4,10 @@ import { NavLink } from 'react-router-dom'
 import s from './Users.module.scss'
 import userEmpty from 'assets/images/user-empty.svg'
 import Pagination from '@material-ui/lab/Pagination'
-import { setCurrentPage } from '../../redux/UsersReducer'
-import { useDispatch, useSelector } from 'react-redux'
+import { compose } from 'redux'
+import { withAuthRedirect } from 'hoc/withAuthRedirect'
+import useUsersContainer from './useUsersContainer'
+import React from 'react'
 
 const useStyles = makeStyles({
     btnFollow: {
@@ -16,25 +18,27 @@ const useStyles = makeStyles({
     },
 })
 
-const Users = props => {
-    const dispatch = useDispatch()
-
+const Users: React.FC = () => {
     const classes = useStyles()
-    const pageCount = useSelector(state => state.usersPage.pageCost)
+    const { data, handlers } = useUsersContainer()
 
     return (
         <div className={s.usersContainer}>
             <h1 className={s.usersTitle}>Users list</h1>
             <Pagination
-                count={pageCount}
-                onChange={(event, page) => dispatch(setCurrentPage(page))}
+                count={data.pageCount}
+                onChange={(event, page) => handlers.onChangePagination(page)}
                 variant='outlined'
                 shape='rounded'
             />
             <div className={s.usersList}>
-                {props.users.map(u => {
+                {data.users.map(u => {
                     return (
-                        <div className={s.userItem} key={u.id} id={u.id}>
+                        <div
+                            className={s.userItem}
+                            key={u.id}
+                            id={String(u.id)}
+                        >
                             <NavLink to={'/profile/' + u.id}>
                                 {u.photos.small !== null ? (
                                     <img
@@ -56,9 +60,7 @@ const Users = props => {
                                 <div className={s.subStatus}>
                                     Subscription status: &nbsp;
                                     <span
-                                        className={
-                                            u.followed ? s.followed : null
-                                        }
+                                        className={u.followed ? s.followed : ''}
                                     >
                                         {u.followed ? 'Followed' : 'Unfollowed'}
                                     </span>
@@ -69,9 +71,9 @@ const Users = props => {
                                 {u.followed ? (
                                     <Button
                                         onClick={() => {
-                                            props.unfollow(u.id)
+                                            handlers.unFollow(u.id)
                                         }}
-                                        disabled={props.followingInProgress.some(
+                                        disabled={data.followingInProgress.some(
                                             id => id === u.id
                                         )}
                                         className={classes.btnFollow}
@@ -83,9 +85,9 @@ const Users = props => {
                                 ) : (
                                     <Button
                                         onClick={() => {
-                                            props.follow(u.id)
+                                            handlers.follow(u.id)
                                         }}
-                                        disabled={props.followingInProgress.some(
+                                        disabled={data.followingInProgress.some(
                                             id => id === u.id
                                         )}
                                         className={classes.btnFollow}
@@ -104,4 +106,4 @@ const Users = props => {
     )
 }
 
-export default Users
+export default compose(withAuthRedirect)(Users)

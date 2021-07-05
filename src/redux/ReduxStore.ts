@@ -14,6 +14,8 @@ let reducers = combineReducers({
     auth: authReducer,
 })
 
+export type AppState = ReturnType<typeof reducers>
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
     reducers,

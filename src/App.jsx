@@ -9,9 +9,7 @@ import Header from './components/Header/Header'
 
 const Profile = React.lazy(() => import('./components/Profile/Profile'))
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'))
-const UsersContainer = React.lazy(() =>
-    import('./components/Users/UsersContainer')
-)
+const Users = React.lazy(() => import('./components/Users/Users'))
 
 const App = () => {
     return (
@@ -33,10 +31,7 @@ const App = () => {
                             path='/messages'
                             render={withSuspense(Dialogs)}
                         />
-                        <Route
-                            path='/users'
-                            render={withSuspense(UsersContainer)}
-                        />
+                        <Route path='/users' render={withSuspense(Users)} />
                         <Route path='/login'>
                             <Login />
                         </Route>

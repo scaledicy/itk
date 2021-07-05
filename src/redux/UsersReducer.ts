@@ -1,5 +1,6 @@
 import { usersAPI } from 'api/api'
-import { updateObjectInArray } from '../utils/helpers/objectHelpers'
+import { UserType } from 'types/types'
+import { updateObjectInArray } from 'utils/helpers/objectHelpers'
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -11,16 +12,18 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 const SET_PAGE_COST = 'SET_PAGE_COST'
 
 let initialState = {
-    users: [],
+    users: [] as Array<UserType>,
     pageSize: 9,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [],
+    followingInProgress: [] as Array<number>, //Array of users id
     pageCost: 1,
 }
 
-const usersReducers = (state = initialState, action) => {
+export type InitialStateType = typeof initialState
+
+const usersReducers = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -64,58 +67,111 @@ const usersReducers = (state = initialState, action) => {
 
 export default usersReducers
 
+type FollowSuccessActionType = {
+    type: typeof FOLLOW
+    userId: number
+}
+type UnFollowSuccessActionType = {
+    type: typeof UNFOLLOW
+    userId: number
+}
+type SetUsersActionType = {
+    type: typeof SET_USERS
+    users: Array<UserType>
+}
+type SetCurrentPageActionType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+type SetCostPageActionType = {
+    type: typeof SET_PAGE_COST
+    cost: number
+}
+type setTotalUsersCountActionType = {
+    type: typeof SET_TOTAL_USERS_COUNT
+    count: number
+}
+type setIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCH
+    isFetching: boolean
+}
+type setIsFollowingProgressActionType = {
+    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
+    isFetching: boolean
+    userId: number
+}
+
 //Action Creators
-export const followSuccess = userId => ({ type: FOLLOW, userId })
-export const unFollowSuccess = userId => ({ type: UNFOLLOW, userId })
-export const setUsers = users => ({ type: SET_USERS, users })
-export const setCurrentPage = currentPage => ({
+export const followSuccess = (userId: number): FollowSuccessActionType => ({
+    type: FOLLOW,
+    userId,
+})
+export const unFollowSuccess = (userId: number): UnFollowSuccessActionType => ({
+    type: UNFOLLOW,
+    userId,
+})
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({
+    type: SET_USERS,
+    users,
+})
+export const setCurrentPage = (
+    currentPage: number
+): SetCurrentPageActionType => ({
     type: SET_CURRENT_PAGE,
     currentPage,
 })
-export const setCostPage = cost => ({
+export const setCostPage = (cost: number): SetCostPageActionType => ({
     type: SET_PAGE_COST,
     cost,
 })
-export const setTotalUsersCount = totalUsersCount => ({
+export const setTotalUsersCount = (
+    totalUsersCount: number
+): setTotalUsersCountActionType => ({
     type: SET_TOTAL_USERS_COUNT,
     count: totalUsersCount,
 })
-export const setIsFetching = isFetching => ({
+export const setIsFetching = (
+    isFetching: boolean
+): setIsFetchingActionType => ({
     type: TOGGLE_IS_FETCH,
     isFetching,
 })
-export const setIsFollowingProgress = (isFetching, userId) => ({
+export const setIsFollowingProgress = (
+    isFetching: boolean,
+    userId: number
+): setIsFollowingProgressActionType => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
     userId,
 })
 
 //Thunk actions creators
-export const getUsers = currentPage => async (dispatch, getState) => {
-    const pageSize = getState().usersPage.pageSize
-    dispatch(setIsFetching(true))
-    let response = await usersAPI.getUsers(currentPage, pageSize)
-    dispatch(setIsFetching(false))
-    dispatch(setUsers(response.data.items))
-    dispatch(setTotalUsersCount(response.data.totalCount))
-    dispatch(setCostPage(Math.ceil(response.data.totalCount / pageSize)))
-}
+export const getUsers =
+    (currentPage: number) => async (dispatch: any, getState: any) => {
+        const pageSize = getState().usersPage.pageSize
+        dispatch(setIsFetching(true))
+        let response = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setIsFetching(false))
+        dispatch(setUsers(response.data.items))
+        dispatch(setTotalUsersCount(response.data.totalCount))
+        dispatch(setCostPage(Math.ceil(response.data.totalCount / pageSize)))
+    }
 
-export const follow = userId => async dispatch => {
+export const follow = (userId: number) => async (dispatch: any) => {
     let apiMethod = usersAPI.followUser.bind(usersAPI)
     await followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
 }
 
-export const unFollow = userId => async dispatch => {
+export const unFollow = (userId: number) => async (dispatch: any) => {
     let apiMethod = usersAPI.unFollowUser.bind(usersAPI)
     await followUnfollowFlow(dispatch, userId, apiMethod, unFollowSuccess)
 }
 
 const followUnfollowFlow = async (
-    dispatch,
-    userId,
-    apiMethod,
-    actionCreator
+    dispatch: any,
+    userId: number,
+    apiMethod: any,
+    actionCreator: any
 ) => {
     dispatch(setIsFollowingProgress(true, userId))
     let response = await apiMethod(userId)

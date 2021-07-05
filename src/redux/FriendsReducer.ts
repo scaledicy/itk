@@ -1,3 +1,9 @@
+type FriendType = {
+    id: number
+    name: string
+    img: string
+}
+
 let initialState = {
     friends: [
         {
@@ -15,10 +21,12 @@ let initialState = {
             name: 'Diana',
             img: 'https://kottke.org/plus/misc/images/ai-faces-01.jpg',
         },
-    ],
+    ] as Array<FriendType>,
 }
 
-const friendsReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState
+
+const friendsReducer = (state = initialState): InitialStateType => {
     return state
 }
 

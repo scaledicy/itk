@@ -8,13 +8,13 @@ import {
     getPageCount,
 } from 'redux/UsersSelectors'
 import { follow, getUsers, unFollow, setCurrentPage } from 'redux/UsersReducer'
-import { AppState } from 'redux/ReduxStore'
+import { AppStore } from 'redux/ReduxStore'
 
 const useUsersContainer = () => {
     const dispatch = useDispatch()
 
     //Data from global state
-    const data = useSelector((state: AppState) => ({
+    const data = useSelector((state: AppStore) => ({
         users: getUsersSuperSelector(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),

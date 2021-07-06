@@ -1,24 +1,24 @@
 import { createSelector } from 'reselect'
-import { AppState } from './ReduxStore'
+import { AppStore } from './ReduxStore'
 
-export const getUsersSelector = (state: AppState) => {
+export const getUsersSelector = (state: AppStore) => {
     return state.usersPage.users
 }
 export const getUsersSuperSelector = createSelector(getUsersSelector, users => {
     return users.filter(u => true)
 })
-export const getPageSize = (state: AppState) => {
+export const getPageSize = (state: AppStore) => {
     return state.usersPage.pageSize
 }
-export const getCurrentPage = (state: AppState) => {
+export const getCurrentPage = (state: AppStore) => {
     return state.usersPage.currentPage
 }
-export const getIsFetching = (state: AppState) => {
+export const getIsFetching = (state: AppStore) => {
     return state.usersPage.isFetching
 }
-export const getFollowingInProgress = (state: AppState) => {
+export const getFollowingInProgress = (state: AppStore) => {
     return state.usersPage.followingInProgress
 }
-export const getPageCount = (state: AppState) => {
+export const getPageCount = (state: AppStore) => {
     return state.usersPage.pageCost
 }

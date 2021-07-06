@@ -8,7 +8,7 @@ import {
     savePhoto,
     updateStatus,
 } from 'redux/ProfileReducer'
-import { AppState } from 'redux/ReduxStore'
+import { AppStore } from 'redux/ReduxStore'
 import { ProfileType } from 'types/types'
 
 interface UserProfileRouteParams {
@@ -20,7 +20,7 @@ const useProfileContainer = () => {
     const dispatch = useDispatch()
 
     //==== Data from state ====
-    const data = useSelector((state: AppState) => {
+    const data = useSelector((state: AppStore) => {
         return {
             profile: state.profilePage.profile,
             status: state.profilePage.status,

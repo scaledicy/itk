@@ -1,8 +1,9 @@
-import React from 'react'
+import { createContext } from 'react'
 
-const StoreContext = React.createContext(null)
+const StoreContext = createContext(null)
 
-export const Provider = props => {
+export const Provider = (props: any) => {
+    console.log(props)
     return (
         <StoreContext.Provider value={props.store}>
             {props.children}

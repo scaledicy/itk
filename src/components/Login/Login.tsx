@@ -1,9 +1,23 @@
 import { useFormik } from 'formik'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from 'redux/AuthReducer'
 import { Redirect } from 'react-router-dom'
+import { AppStore } from 'redux/ReduxStore'
+import React from 'react'
+import { FormikProps } from 'formik/dist/types'
 
-const LoginForm = props => {
+export interface MyFormValues {
+    email: string
+    password: string
+    captcha: string
+}
+
+interface LoginFormProps {
+    formik: FormikProps<MyFormValues>
+    captchaUrl: string | null
+}
+
+const LoginForm: React.FC<LoginFormProps> = props => {
     return (
         <form onSubmit={props.formik.handleSubmit}>
             <label htmlFor='email'>Email Address</label>
@@ -42,27 +56,30 @@ const LoginForm = props => {
     )
 }
 
-const Login = props => {
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-            captcha: '',
-        },
+const Login: React.FC = () => {
+    const dispatch = useDispatch()
+
+    const data = useSelector((state: AppStore) => ({
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl,
+    }))
+
+    const initialValues: MyFormValues = {
+        email: '',
+        password: '',
+        captcha: '',
+    }
+
+    const formik = useFormik<MyFormValues>({
+        initialValues,
         onSubmit: values => {
-            props.login(values.email, values.password, values.captcha)
+            dispatch(login(values.email, values.password, values.captcha))
         },
     })
-    if (props.isAuth) {
+    if (data.isAuth) {
         return <Redirect to='/profile' />
     }
-    return <LoginForm formik={formik} captchaUrl={props.captchaUrl} />
+    return <LoginForm formik={formik} captchaUrl={data.captchaUrl} />
 }
 
-const mapStateToProps = state => ({
-    isAuth: state.auth.isAuth,
-    captchaUrl: state.auth.captchaUrl,
-})
-export default connect(mapStateToProps, {
-    login,
-})(Login)
+export default Login

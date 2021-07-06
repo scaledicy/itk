@@ -9,7 +9,7 @@ import {
     updateStatus,
 } from 'redux/ProfileReducer'
 import { AppStore } from 'redux/ReduxStore'
-import { ProfileType } from 'types/types'
+import { ProfileFieldsType } from 'types/types'
 
 interface UserProfileRouteParams {
     userId: string
@@ -48,8 +48,18 @@ const useProfileContainer = () => {
         [dispatch]
     )
     const saveProfileHandler = useCallback(
-        (profile: ProfileType) => dispatch(fetchUpdateUserProfile(profile)),
-        [dispatch]
+        (profileFields: ProfileFieldsType) =>
+            dispatch(
+                fetchUpdateUserProfile({
+                    ...profileFields,
+                    userId: data.profile?.userId || 0,
+                    photos: data.profile?.photos || {
+                        large: null,
+                        small: null,
+                    },
+                })
+            ),
+        [dispatch, data.profile?.userId, data.profile?.photos]
     )
 
     useEffect(() => {

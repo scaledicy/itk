@@ -2,25 +2,36 @@ import { useFormik } from 'formik'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { ProfileFieldsType } from 'types/types'
+import React from 'react'
 
-const ProfileDescriptionEdit = ({ profile, handleSubmit }) => {
-    const formik = useFormik({
-        initialValues: {
-            aboutMe: profile.aboutMe,
-            lookingForAJobDescription: profile.lookingForAJobDescription,
-            lookingForAJob: profile.lookingForAJob,
-            fullName: profile.fullName,
-            contacts: {
-                facebook: '',
-                website: '',
-                vk: '',
-                twitter: '',
-                instagram: '',
-                youtube: '',
-                github: '',
-                mainLink: '',
-            },
+interface ProfileDescriptionEditProps {
+    profile: ProfileFieldsType
+    handleSubmit: (formData: ProfileFieldsType) => void
+}
+
+const ProfileDescriptionEdit: React.FC<ProfileDescriptionEditProps> = ({
+    profile,
+    handleSubmit,
+}) => {
+    let initialValues: ProfileFieldsType = {
+        aboutMe: profile.aboutMe,
+        lookingForAJobDescription: profile.lookingForAJobDescription,
+        lookingForAJob: profile.lookingForAJob,
+        fullName: profile.fullName,
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
         },
+    }
+    const formik = useFormik<ProfileFieldsType>({
+        initialValues,
         onSubmit: values => {
             handleSubmit(values)
         },

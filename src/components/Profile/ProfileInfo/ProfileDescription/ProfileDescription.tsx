@@ -1,6 +1,15 @@
-import s from '../ProfileInfo.module.scss'
+import s from 'components/Profile/ProfileInfo/ProfileInfo.module.scss'
+import { ContactsType, ProfileType } from 'types/types'
+import React from 'react'
 
-const ProfileDescription = ({
+interface ProfileDescriptionState {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
+    socialImages: Array<any>
+}
+
+const ProfileDescription: React.FC<ProfileDescriptionState> = ({
     profile,
     isOwner,
     goToEditMode,
@@ -28,12 +37,6 @@ const ProfileDescription = ({
                 </div>
 
                 <div>
-                    <span>About me:</span>
-                    &nbsp;
-                    {profile?.aboutMe}
-                </div>
-
-                <div>
                     <span>Looking for work:</span>
                     &nbsp;
                     {profile?.lookingForAJob ? 'Yes' : 'No'}
@@ -52,7 +55,13 @@ const ProfileDescription = ({
                         return (
                             <div key={key}>
                                 <img src={socialImages[i]} alt={key} />
-                                <span>{profile.contacts[key]}</span>
+                                <span>
+                                    {
+                                        profile.contacts[
+                                            key as keyof ContactsType
+                                        ]
+                                    }
+                                </span>
                             </div>
                         )
                     })}

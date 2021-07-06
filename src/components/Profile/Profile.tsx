@@ -11,14 +11,16 @@ const Profile: React.FC = () => {
             <h1 className={s.profileTitle}>
                 Profile: {data.profile?.fullName}
             </h1>
-            <ProfileInfo
-                profile={data.profile}
-                status={data.status}
-                updateStatus={handlers.updateStatus}
-                isOwner={data.isOwner}
-                savePhoto={handlers.savePhoto}
-                saveProfile={handlers.saveProfile}
-            />
+            {data.profile && (
+                <ProfileInfo
+                    profile={data.profile}
+                    status={data.status}
+                    updateStatus={handlers.updateStatus}
+                    isOwner={data.isOwner}
+                    savePhoto={handlers.savePhoto}
+                    saveProfile={handlers.saveProfile}
+                />
+            )}
             <MyPostsContainer />
         </>
     )

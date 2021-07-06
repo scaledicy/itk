@@ -11,7 +11,7 @@ import youtube from 'assets/images/social-icons/youtube.svg'
 import React, { useState } from 'react'
 import ProfileDescription from './ProfileDescription/ProfileDescription'
 import ProfileDescriptionEdit from './ProfileDescriptionEdit/ProfileDescriptionEdit'
-import { ProfileType } from 'types/types'
+import { ProfileFieldsType, ProfileType } from 'types/types'
 import ProfileStatus from './ProfileStatus/ProfileStatus'
 
 const socialImages = [
@@ -26,12 +26,12 @@ const socialImages = [
 ]
 
 interface ProfileInfoProps {
-    profile: ProfileType | null
+    profile: ProfileType
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: any
-    saveProfile: (profile: ProfileType) => void
+    saveProfile: (profile: ProfileFieldsType) => void
 }
 
 const ProfileInfo: React.FC<ProfileInfoProps> = ({
@@ -50,16 +50,19 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
         }
     }
 
-    const onSubmit = async (formData: ProfileType) => {
+    const onSubmit = async (formData: ProfileFieldsType) => {
         await saveProfile(formData)
         setEditMode(false)
     }
+
+    const { userId, photos, ...profileFields } = profile
+
     return (
         <div className={s.profileContainer}>
             <div className={s.profileHeader}>
                 <div className={s.profileImg}>
-                    {profile?.photos?.large ? (
-                        <img src={profile?.photos?.large} alt='profilePhoto' />
+                    {photos.large ? (
+                        <img src={photos.large} alt='profilePhoto' />
                     ) : (
                         <img src={userEmpty} alt='emptyPhoto' />
                     )}
@@ -70,7 +73,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
             </div>
             {editMode ? (
                 <ProfileDescriptionEdit
-                    profile={profile}
+                    profile={profileFields}
                     handleSubmit={onSubmit}
                 />
             ) : (

@@ -20,12 +20,16 @@ export type PhotosType = {
     large: string | null
 }
 
-export type ProfileType = {
-    userId: number
+export interface ProfileFieldsType {
+    aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
+}
+
+export interface ProfileType extends ProfileFieldsType {
+    userId: number
     photos: PhotosType
 }
 

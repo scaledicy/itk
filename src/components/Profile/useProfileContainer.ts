@@ -8,13 +8,19 @@ import {
     savePhoto,
     updateStatus,
 } from 'redux/ProfileReducer'
+import { AppState } from 'redux/ReduxStore'
+import { ProfileType } from 'types/types'
+
+interface UserProfileRouteParams {
+    userId: string
+}
 
 const useProfileContainer = () => {
-    const params = useParams()
+    const params = useParams<UserProfileRouteParams>()
     const dispatch = useDispatch()
 
     //==== Data from state ====
-    const data = useSelector(state => {
+    const data = useSelector((state: AppState) => {
         return {
             profile: state.profilePage.profile,
             status: state.profilePage.status,
@@ -22,27 +28,27 @@ const useProfileContainer = () => {
         }
     })
 
-    const userId = params.userId || data.authorizedUserId
+    const userId = +params.userId || data.authorizedUserId
 
     //Dispatch handlers
     const fetchUserProfileHandler = useCallback(
-        userId => dispatch(fetchUserProfile(userId)),
+        (userId: number) => dispatch(fetchUserProfile(userId)),
         [dispatch]
     )
     const savePhotoHandler = useCallback(
-        file => dispatch(savePhoto(file)),
+        (file: any) => dispatch(savePhoto(file)),
         [dispatch]
     )
     const getStatusHandler = useCallback(
-        userId => dispatch(getStatus(userId)),
+        (userId: number) => dispatch(getStatus(userId)),
         [dispatch]
     )
     const updateStatusHandler = useCallback(
-        status => dispatch(updateStatus(status)),
+        (status: string) => dispatch(updateStatus(status)),
         [dispatch]
     )
     const saveProfileHandler = useCallback(
-        profile => dispatch(fetchUpdateUserProfile(profile)),
+        (profile: ProfileType) => dispatch(fetchUpdateUserProfile(profile)),
         [dispatch]
     )
 

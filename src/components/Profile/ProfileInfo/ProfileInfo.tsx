@@ -8,10 +8,11 @@ import twitter from 'assets/images/social-icons/twitter.svg'
 import vk from 'assets/images/social-icons/vk.svg'
 import website from 'assets/images/social-icons/website.svg'
 import youtube from 'assets/images/social-icons/youtube.svg'
-import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import ProfileDescription from './ProfileDescription/ProfileDescription'
 import ProfileDescriptionEdit from './ProfileDescriptionEdit/ProfileDescriptionEdit'
+import { ProfileType } from 'types/types'
+import ProfileStatus from './ProfileStatus/ProfileStatus'
 
 const socialImages = [
     facebook,
@@ -24,39 +25,52 @@ const socialImages = [
     youtube,
 ]
 
-const ProfileInfo = props => {
+interface ProfileInfoProps {
+    profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: any
+    saveProfile: (profile: ProfileType) => void
+}
+
+const ProfileInfo: React.FC<ProfileInfoProps> = ({
+    profile,
+    status,
+    updateStatus,
+    isOwner,
+    savePhoto,
+    saveProfile,
+}) => {
     const [editMode, setEditMode] = useState(false)
 
-    const onMainPhotoSelected = e => {
-        if (e.target.files.length) {
-            props.savePhoto(e.target.files[0])
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            savePhoto(e.target.files[0])
         }
     }
 
-    const onSubmit = async formData => {
-        await props.saveProfile(formData)
+    const onSubmit = async (formData: ProfileType) => {
+        await saveProfile(formData)
         setEditMode(false)
     }
     return (
         <div className={s.profileContainer}>
             <div className={s.profileHeader}>
                 <div className={s.profileImg}>
-                    {props.profile?.photos?.large ? (
-                        <img
-                            src={props.profile?.photos?.large}
-                            alt='profilePhoto'
-                        />
+                    {profile?.photos?.large ? (
+                        <img src={profile?.photos?.large} alt='profilePhoto' />
                     ) : (
                         <img src={userEmpty} alt='emptyPhoto' />
                     )}
                 </div>
-                {props.isOwner && (
+                {isOwner && (
                     <input type='file' onChange={onMainPhotoSelected} />
                 )}
             </div>
             {editMode ? (
                 <ProfileDescriptionEdit
-                    profile={props.profile}
+                    profile={profile}
                     handleSubmit={onSubmit}
                 />
             ) : (
@@ -64,16 +78,13 @@ const ProfileInfo = props => {
                     goToEditMode={() => {
                         setEditMode(true)
                     }}
-                    profile={props.profile}
-                    isOwner={props.isOwner}
+                    profile={profile}
+                    isOwner={isOwner}
                     socialImages={socialImages}
                 />
             )}
 
-            <ProfileStatusWithHooks
-                status={props.status}
-                updateStatus={props.updateStatus}
-            />
+            <ProfileStatus status={status} updateStatus={updateStatus} />
         </div>
     )
 }

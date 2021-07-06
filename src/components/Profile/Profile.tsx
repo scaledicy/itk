@@ -2,8 +2,9 @@ import MyPostsContainer from './MyPosts/MyPostsContainer'
 import s from './Profile.module.scss'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import useProfileContainer from './useProfileContainer'
+import React from 'react'
 
-const Profile = () => {
+const Profile: React.FC = () => {
     const { data, handlers } = useProfileContainer()
     return (
         <>

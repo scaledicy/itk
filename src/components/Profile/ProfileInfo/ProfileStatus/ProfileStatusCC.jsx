@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ProfileStatus extends React.Component {
+class ProfileStatusCC extends React.Component {
     state = {
         editMode: false,
         status: this.props.status,
@@ -52,4 +52,4 @@ class ProfileStatus extends React.Component {
     }
 }
 
-export default ProfileStatus
+export default ProfileStatusCC

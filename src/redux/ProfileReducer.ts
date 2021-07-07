@@ -1,5 +1,8 @@
 import { profileAPI } from 'api/api'
 import { PhotosType, PostType, ProfileType } from 'types/types'
+import { ThunkAction } from 'redux-thunk'
+import { AppStore } from './ReduxStore'
+import { Action } from 'redux'
 
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -70,6 +73,13 @@ const profileReducer = (
 
 export default profileReducer
 
+type ActionsType =
+    | AddPostActionType
+    | SetUserProfileActionType
+    | SetStatusActionType
+    | DeletePostActionType
+    | SavePhotoSuccessActionType
+
 type AddPostActionType = {
     type: typeof ADD_POST
     newPostText: string
@@ -91,7 +101,7 @@ type SavePhotoSuccessActionType = {
     photos: PhotosType
 }
 
-//Actions creators
+//==== Action creators ====
 export const addPost = (newPostText: string): AddPostActionType => ({
     type: ADD_POST,
     newPostText,
@@ -117,37 +127,52 @@ export const savePhotoSuccess = (
     photos,
 })
 
-//Thunk actions creators
-export const fetchUserProfile = (userId: number) => async (dispatch: any) => {
-    let response = await profileAPI.getProfile(userId)
-    dispatch(setUserProfile(response.data))
-}
+//==== Thunk action creators ====
+export const fetchUserProfile =
+    (userId: number): ThunkAction<Promise<void>, AppStore, unknown, Action> =>
+    async dispatch => {
+        let response = await profileAPI.getProfile(userId)
+        dispatch(setUserProfile(response.data))
+    }
 
 export const fetchUpdateUserProfile =
-    (profile: ProfileType) => async (dispatch: any, getState: any) => {
+    (
+        profile: ProfileType
+    ): ThunkAction<Promise<void>, AppStore, unknown, Action> =>
+    async (dispatch, getState) => {
         const userId = getState().auth.userId
         let response = await profileAPI.updateProfile(profile)
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === 0 && userId) {
             dispatch(fetchUserProfile(userId))
         } else {
             return Promise.reject(response.data.messages[0])
         }
     }
 
-export const getStatus = (userId: number) => async (dispatch: any) => {
-    let response = await profileAPI.getStatus(userId)
-    dispatch(setStatus(response.data))
-}
+export const getStatus =
+    (
+        userId: number
+    ): ThunkAction<Promise<void>, AppStore, unknown, ActionsType> =>
+    async dispatch => {
+        let response = await profileAPI.getStatus(userId)
+        dispatch(setStatus(response.data))
+    }
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+export const updateStatus =
+    (
+        status: string
+    ): ThunkAction<Promise<void>, AppStore, unknown, ActionsType> =>
+    async dispatch => {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
-}
-export const savePhoto = (file: any) => async (dispatch: any) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+export const savePhoto =
+    (file: any): ThunkAction<Promise<void>, AppStore, unknown, ActionsType> =>
+    async dispatch => {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+        }
     }
-}
